@@ -2308,6 +2308,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &986328020 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5816422030429470223, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
+  m_PrefabInstance: {fileID: 1338255539}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1338255539
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2318,11 +2323,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 969958807700409231, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
       propertyPath: m_GravityScale
-      value: 9.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1667636342438995758, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
       propertyPath: m_Name
       value: PlayerPrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 3600401525870630746, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 3600401525870630746, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 3600401525870630746, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3600401525870630746, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2444,7 +2461,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpForce: 15
-  JumpGravity: 3.5
+  jumpGravity: 0.5
+  pushDown: -5
+  raycastPosition: {fileID: 986328020}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
   moveSpeed: 5
 --- !u!1 &1674682929
 GameObject:
