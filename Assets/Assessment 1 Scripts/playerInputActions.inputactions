@@ -16,12 +16,12 @@
                 },
                 {
                     "name": "Movement",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "14daac3c-b81f-4fc7-8637-249704c46932",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -38,8 +38,19 @@
                 },
                 {
                     "name": "",
-                    "id": "4e16d7d8-2cc5-4055-9f3c-351a4666e147",
-                    "path": "",
+                    "id": "6870c275-0f0c-4a96-a847-7ba4b0f210d3",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "Invert",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "71536e20-86c6-4e75-95cc-73142be0bd0e",
+                    "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

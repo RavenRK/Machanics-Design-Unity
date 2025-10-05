@@ -147,7 +147,7 @@ Transform:
   m_GameObject: {fileID: 37366073}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1.2600002, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2224,6 +2224,11 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 8622988680036917310, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
   m_PrefabInstance: {fileID: 1338255539}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &914824272 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5816422030429470223, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
+  m_PrefabInstance: {fileID: 1338255539}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &938603582
 GameObject:
   m_ObjectHideFlags: 0
@@ -2317,8 +2322,28 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 969958807700409231, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
+      propertyPath: m_Mass
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 969958807700409231, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 969958807700409231, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
+      propertyPath: m_Interpolate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 969958807700409231, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
       propertyPath: m_GravityScale
-      value: 9.5
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 969958807700409231, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
+      propertyPath: m_LinearDamping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 969958807700409231, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1667636342438995758, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
       propertyPath: m_Name
@@ -2330,7 +2355,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3600401525870630746, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.36
       objectReference: {fileID: 0}
     - target: {fileID: 3600401525870630746, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2363,6 +2388,34 @@ PrefabInstance:
     - target: {fileID: 3600401525870630746, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8622988680036917310, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
+      propertyPath: m_ClearFlags
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8622988680036917310, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 0.1509434
+      objectReference: {fileID: 0}
+    - target: {fileID: 8622988680036917310, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0.1509434
+      objectReference: {fileID: 0}
+    - target: {fileID: 8622988680036917310, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 0.1509434
+      objectReference: {fileID: 0}
+    - target: {fileID: 8932591283578582491, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
+      propertyPath: m_Color.b
+      value: 0.8396226
+      objectReference: {fileID: 0}
+    - target: {fileID: 8932591283578582491, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
+      propertyPath: m_Color.g
+      value: 0.8396226
+      objectReference: {fileID: 0}
+    - target: {fileID: 8932591283578582491, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
+      propertyPath: m_Color.r
+      value: 0.8396226
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 929667974029550097, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
@@ -2423,7 +2476,19 @@ MonoBehaviour:
     m_ActionId: 5615cfbf-4817-4411-9f15-1bc454d9953b
     m_ActionName: 'player/jump[/Keyboard/space]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1513426692}
+        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+        m_MethodName: move
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 14daac3c-b81f-4fc7-8637-249704c46932
     m_ActionName: player/Movement
   m_NeverAutoSwitchControlSchemes: 0
@@ -2443,9 +2508,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 398e41ade13e95d4ca9d4e620e7ba7c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 15
-  JumpGravity: 3.5
-  moveSpeed: 5
+  jumpForce: 30
+  JumpGravity: 3
+  JumpDownForce: -17
+  m_RaycastPosition: {fileID: 914824272}
+  m_GroundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  moveSpeed: 7.5
+  originalGravityScale: 5
 --- !u!1 &1674682929
 GameObject:
   m_ObjectHideFlags: 0
