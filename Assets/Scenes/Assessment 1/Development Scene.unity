@@ -2339,7 +2339,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 969958807700409231, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
       propertyPath: m_LinearDamping
-      value: 0
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 969958807700409231, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
       propertyPath: m_CollisionDetection
@@ -2512,6 +2512,7 @@ MonoBehaviour:
   JumpGravity: 3
   JumpDownForce: -17
   JumpBufferTimer: 0.3
+  JumpLinearDamping: 0
   moveSpeed: 7.5
   m_RaycastPosition: {fileID: 914824272}
   m_GroundLayer:
