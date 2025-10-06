@@ -2351,7 +2351,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3600401525870630746, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 3600401525870630746, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2427,7 +2427,7 @@ PrefabInstance:
       addedObject: {fileID: 1513426688}
     - targetCorrespondingSourceObject: {fileID: 1667636342438995758, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1513426692}
+      addedObject: {fileID: 1513426695}
   m_SourcePrefab: {fileID: 100100000, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
 --- !u!1 &1513426687 stripped
 GameObject:
@@ -2461,7 +2461,7 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1513426692}
+      - m_Target: {fileID: 1513426695}
         m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
         m_MethodName: Jump
         m_Mode: 0
@@ -2477,7 +2477,7 @@ MonoBehaviour:
     m_ActionName: 'player/jump[/Keyboard/space]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1513426692}
+      - m_Target: {fileID: 1513426695}
         m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
         m_MethodName: move
         m_Mode: 0
@@ -2496,7 +2496,7 @@ MonoBehaviour:
   m_DefaultActionMap: player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 137318336}
---- !u!114 &1513426692
+--- !u!114 &1513426695
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2511,12 +2511,13 @@ MonoBehaviour:
   jumpForce: 30
   JumpGravity: 3
   JumpDownForce: -17
+  JumpBufferTimer: 0.3
+  moveSpeed: 7.5
   m_RaycastPosition: {fileID: 914824272}
   m_GroundLayer:
     serializedVersion: 2
     m_Bits: 8
-  moveSpeed: 7.5
-  originalGravityScale: 5
+  bCanDebug: 1
 --- !u!1 &1674682929
 GameObject:
   m_ObjectHideFlags: 0
