@@ -2,6 +2,7 @@ using System.ComponentModel.Design.Serialization;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
+using System;
 
 public static class Log
 {
@@ -14,6 +15,21 @@ public static class Log
 
 public class PlayerMovement : MonoBehaviour
 {
+    int m_CurrentHealth = 100;
+
+
+    public event Action OnPlayerDead;
+
+    public void TakeDamage(int damage)
+    {
+        m_CurrentHealth -= damage;
+
+        if (m_CurrentHealth <= 0)
+        {
+            OnPlayerDead?.Invoke();
+        }
+    }
+
     private Rigidbody2D rb2D;
 
     [Header("Jump Settings")]
