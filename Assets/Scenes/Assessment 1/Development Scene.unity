@@ -2224,11 +2224,6 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 8622988680036917310, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
   m_PrefabInstance: {fileID: 1338255539}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &914824272 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5816422030429470223, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
-  m_PrefabInstance: {fileID: 1338255539}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &938603582
 GameObject:
   m_ObjectHideFlags: 0
@@ -2428,6 +2423,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1667636342438995758, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1513426695}
+    - targetCorrespondingSourceObject: {fileID: 1667636342438995758, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1513426698}
   m_SourcePrefab: {fileID: 100100000, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
 --- !u!1 &1513426687 stripped
 GameObject:
@@ -2447,7 +2445,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: e68e11d5b402f7e4ebe5122bff83a66b, type: 3}
-  m_NotificationBehavior: 2
+  m_NotificationBehavior: 3
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -2508,17 +2506,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 398e41ade13e95d4ca9d4e620e7ba7c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 30
-  JumpGravity: 3
-  JumpDownForce: -17
-  JumpBufferTimer: 0.3
+--- !u!114 &1513426698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1513426687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30bc69a0d669e1144b786a901cab65a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpForce: 10
+  JumpGravity: 5
+  JumpDownForce: 5
+  JumpBufferTimer: 0.2
   JumpLinearDamping: 0
-  moveSpeed: 7.5
-  m_RaycastPosition: {fileID: 914824272}
-  m_GroundLayer:
+  originalJumpBufferTimer: 0
+  originalGravityScale: 0
+  bIsInputbuffer: 0
+  bShortJump: 0
+  originalLinearDamping: 0
+  bJumpGravityReset: 1
+  moveSpeed: 5
+  movementInput: 0
+  IsMoving: 0
+  RaycastPosition: {fileID: 0}
+  GroundLayer:
     serializedVersion: 2
-    m_Bits: 8
-  bCanDebug: 1
+    m_Bits: 0
+  bCanDebug: 0
+  rb2D: {fileID: 0}
+  bIsGrounded: 0
 --- !u!1 &1674682929
 GameObject:
   m_ObjectHideFlags: 0
