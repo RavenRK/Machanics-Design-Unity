@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
 using System;
+using UnityEngine.Serialization;
 
 #region --Debug---
 public static class Log
@@ -17,26 +18,27 @@ public static class Log
 
 public class playerCharacter : MonoBehaviour
 {
-    int m_CurrentHealth = 100;
+    int currentHealth = 100;
     public event Action OnPlayerDead;
 
     public void TakeDamage(int damage)
     {
-        m_CurrentHealth -= damage;
+        currentHealth -= damage;
 
-        if (m_CurrentHealth <= 0)
+        if (currentHealth <= 0)
         {
             OnPlayerDead?.Invoke();
         }
     }
 
-    public playerStateManager playerStateManager { get; private set; }
+    public playerStateManager PlayerStateManager { get; private set; }
     private PlayerInput playerInput;
 
     #region --movement settings---
     #region --JUMP Settings---
+    [FormerlySerializedAs("jumpForce")]
     [Header("Jump Settings")]
-    [SerializeField] public float jumpForce = 10f;
+    [SerializeField] public float JumpForce = 10f;
     [SerializeField] public float JumpGravity = 5f;
     [SerializeField] public float JumpDownForce = 5f;
     [SerializeField] public float JumpBufferTimer = 0.2f;
@@ -46,7 +48,7 @@ public class playerCharacter : MonoBehaviour
     public bool bIsInputbuffer = false;
     public bool bShortJump = false;
     public float originalLinearDamping;
-    public Coroutine CGroundUpdate;
+    public Coroutine CGroundUpdate; //rhzhaw
     public bool bJumpGravityReset = true;
     #endregion
 
@@ -54,37 +56,37 @@ public class playerCharacter : MonoBehaviour
     [Header("Move settings")]
     [SerializeField] private float moveSpeed = 5f;
     public float movementInput;
-    public Coroutine Cmove;
-    public bool IsMoving;
+    public Coroutine Cmove;//ewgfaw
+    public bool bIsMoving;
     #endregion
     #endregion
 
-
+    [FormerlySerializedAs("RaycastPosition")]
     [Header("checks")]
-    [SerializeField] private Transform RaycastPosition;
-    [SerializeField] private LayerMask GroundLayer;
+    [SerializeField] private Transform raycastPosition;
+    [FormerlySerializedAs("GroundLayer")] [SerializeField] private LayerMask gGroundLayer;
     [SerializeField] private bool bCanDebug;
 
     public Rigidbody2D rb2D;
     public bool bIsGrounded;
 
     #region --States---
-    public player_StateIdle idleState { get; private set; }
-    public player_StateAir airState  { get; private set; }
-    public player_StateMove moveState { get; private set; }
-    public player_StateJump jumpState { get; private set; }
+    public playerState_Idle IdleState { get; private set; }
+    public playerState_Air AirState  { get; private set; }
+    public playerState_Move MoveState { get; private set; }
+    public playerState_Jump JumpState { get; private set; }
 
     #endregion
 
     private void Awake()
     {
-        playerStateManager = new playerStateManager();
-        playerStateManager.playerCharacter = this;
+        PlayerStateManager = new playerStateManager();
+        PlayerStateManager.playerCharacter = this;
 
-        idleState = new player_StateIdle(this, playerStateManager);
-        airState = new player_StateAir(this, playerStateManager);
-        moveState = new player_StateMove(this, playerStateManager);
-        jumpState = new player_StateJump(this, playerStateManager);
+        IdleState = new playerState_Idle(this, PlayerStateManager);
+        AirState = new playerState_Air(this, PlayerStateManager);
+        MoveState = new playerState_Move(this, PlayerStateManager);
+        JumpState = new playerState_Jump(this, PlayerStateManager);
 
         rb2D = GetComponent<Rigidbody2D>();
         playerInput = GetComponent<PlayerInput>();
@@ -97,19 +99,19 @@ public class playerCharacter : MonoBehaviour
     }
     private void Start()
     {
-        playerStateManager.Initialize(new player_StateMove(this, playerStateManager));
+        PlayerStateManager.Initialize(IdleState);
     }
     private void FixedUpdate()
     {
-        bIsGrounded = Physics2D.Raycast(RaycastPosition.position, Vector2.down, 0.05f, GroundLayer);     //ray cast for check grounded
-        playerStateManager.currentState.Update();
+        bIsGrounded = Physics2D.Raycast(raycastPosition.position, Vector2.down, 0.05f, gGroundLayer);     //ray cast for check grounded
+        PlayerStateManager.CurrentState.Update();
     }
 
     public IEnumerator MoveUpdate()
     {
-        while (IsMoving)
+        while (bIsMoving)
         {
-            if (bCanDebug) { Log.Green("moveing"); }
+            if (bCanDebug) { Log.Green("moving"); }
 
             yield return new WaitForFixedUpdate();
             rb2D.linearVelocity = new Vector2(movementInput * moveSpeed, rb2D.linearVelocity.y);
@@ -130,31 +132,30 @@ public class playerCharacter : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
     }
-    public IEnumerator inputBufferUpdate()
+    public IEnumerator InputBufferUpdate()
     {
         JumpBufferTimer = originalJumpBufferTimer;
         while (bIsInputbuffer)
         {
             if (bCanDebug) { Log.Blue("input buffer"); }
             JumpBufferTimer -= Time.deltaTime;
-            inputBuffer();
+            InputBuffer();
             yield return null;
         }
         JumpBufferTimer = originalJumpBufferTimer;
     }
-    public void inputBuffer()
+    public void InputBuffer()
     {
         // do normal jump if buffer timer is > 0 when player is grounded
         if (JumpBufferTimer > 0 && bIsGrounded && !bShortJump)
         {
             if (bCanDebug) { Log.Green("input buffer Jump"); }
-            playerStateManager.ChangeState(jumpState);
-            //Jump(JumpGravity, jumpForce, true);
+            PlayerStateManager.ChangeState(JumpState);
         }
         else if (JumpBufferTimer > 0 && bIsGrounded && bShortJump)
         {
             if (bCanDebug) { Log.yellow("input buffer Short Jump"); }
-            //Jump(originalGravityScale, jumpForce, true);
+            PlayerStateManager.ChangeState(JumpState);
             bShortJump = false;
         }
         else if (JumpBufferTimer < 0)

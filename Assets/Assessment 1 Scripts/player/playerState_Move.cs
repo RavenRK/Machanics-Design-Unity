@@ -2,18 +2,18 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class player_StateMove : player_StateBase
+public class playerState_Move : player_StateBase
 {
-    public player_StateMove(playerCharacter _playerCharacter, playerStateManager _playerStateManager) : base(_playerCharacter, _playerStateManager) { }
+    public playerState_Move(playerCharacter playerCharacter, playerStateManager playerStateManager) : base(playerCharacter, playerStateManager) { }
 
 
-    public void move(InputAction.CallbackContext context)
+    public void Move(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
             if (bCanDebug) { Log.Green("move"); }
 
-            pC.IsMoving = true;
+            pC.bIsMoving = true;
 
             pC.movementInput = context.ReadValue<float>();
             pC.Cmove = pC.StartCoroutine(pC.MoveUpdate());
@@ -23,7 +23,7 @@ public class player_StateMove : player_StateBase
         {
             if (bCanDebug) { Log.yellow("stop"); }
 
-            pC.IsMoving = false;
+            pC.bIsMoving = false;
 
             pC.movementInput = 0;
 

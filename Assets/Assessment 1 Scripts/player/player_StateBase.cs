@@ -10,10 +10,10 @@ public class player_StateBase
 
     protected Rigidbody2D rb2D;
 
-    public player_StateBase(playerCharacter _playerCharacter, playerStateManager _playerStateManager)
+    protected player_StateBase(playerCharacter playerCharacter, playerStateManager playerStateManager)
     {
-        this.playerStateManager = _playerStateManager;
-        this.pC = _playerCharacter;
+        this.playerStateManager = playerStateManager;
+        this.pC = playerCharacter;
 
     }
     public virtual void Enter() => rb2D = pC.rb2D;
