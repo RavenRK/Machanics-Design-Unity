@@ -8,24 +8,24 @@ using UnityEngine.Serialization;
 #region --Debug---
 public static class Log
 {
-    public static void red(string msg) => Debug.Log($" <color=red>{msg}</color>");
-    public static void yellow(string msg) => Debug.Log($" <color=yellow>{msg}</color>");
+    public static void Red(string msg) => Debug.Log($" <color=red>{msg}</color>");
+    public static void Yellow(string msg) => Debug.Log($" <color=yellow>{msg}</color>");
     public static void Green(string msg) => Debug.Log($" <color=lime>{msg}</color>");
     public static void Blue(string msg) => Debug.Log($" <color=cyan>{msg}</color>");
-    public static void purple(string msg) => Debug.LogError($" <color=violet>{msg}</color>");
+    public static void Purple(string msg) => Debug.LogError($" <color=violet>{msg}</color>");
 }
 #endregion
 
 public class playerCharacter : MonoBehaviour
 {
-    int currentHealth = 100;
+    int _currentHealth = 100;
     public event Action OnPlayerDead;
 
     public void TakeDamage(int damage)
     {
-        currentHealth -= damage;
+        _currentHealth -= damage;
 
-        if (currentHealth <= 0)
+        if (_currentHealth <= 0)
         {
             OnPlayerDead?.Invoke();
         }
@@ -36,13 +36,13 @@ public class playerCharacter : MonoBehaviour
 
     #region --movement settings---
     #region --JUMP Settings---
-    [FormerlySerializedAs("jumpForce")]
+    [FormerlySerializedAs("JumpForce")]
     [Header("Jump Settings")]
-    [SerializeField] public float JumpForce = 10f;
-    [SerializeField] public float JumpGravity = 5f;
-    [SerializeField] public float JumpDownForce = 5f;
-    [SerializeField] public float JumpBufferTimer = 0.2f;
-    [SerializeField] public float JumpLinearDamping = 0;
+    [SerializeField] public float jumpForce = 10f;
+    [SerializeField] public float jumpGravity = 5f;
+    [SerializeField] public float jumpDownForce = 5f;
+    [SerializeField] public float jumpBufferTimer = 0.2f;
+    [SerializeField] public float jumpLinearDamping = 0;
     public float originalJumpBufferTimer;
     public float originalGravityScale;
     public bool bIsInputbuffer = false;
@@ -94,7 +94,7 @@ public class playerCharacter : MonoBehaviour
 
         //store original values
         originalGravityScale = rb2D.gravityScale;
-        originalJumpBufferTimer = JumpBufferTimer;
+        originalJumpBufferTimer = jumpBufferTimer;
         originalLinearDamping = rb2D.linearDamping;
     }
     private void Start()
@@ -124,7 +124,7 @@ public class playerCharacter : MonoBehaviour
             if (bCanDebug) { Log.Blue("in Air"); }
             if (bIsGrounded)
             {
-                if (bCanDebug) { Log.yellow("stops"); }
+                if (bCanDebug) { Log.Yellow("stops"); }
                 //StopCoroutine(Cmove);
                 //rb2D.linearVelocity = new Vector2(0, 0);
             }
@@ -134,35 +134,35 @@ public class playerCharacter : MonoBehaviour
     }
     public IEnumerator InputBufferUpdate()
     {
-        JumpBufferTimer = originalJumpBufferTimer;
+        jumpBufferTimer = originalJumpBufferTimer;
         while (bIsInputbuffer)
         {
             if (bCanDebug) { Log.Blue("input buffer"); }
-            JumpBufferTimer -= Time.deltaTime;
+            jumpBufferTimer -= Time.deltaTime;
             InputBuffer();
             yield return null;
         }
-        JumpBufferTimer = originalJumpBufferTimer;
+        jumpBufferTimer = originalJumpBufferTimer;
     }
     public void InputBuffer()
     {
         // do normal jump if buffer timer is > 0 when player is grounded
-        if (JumpBufferTimer > 0 && bIsGrounded && !bShortJump)
+        if (jumpBufferTimer > 0 && bIsGrounded && !bShortJump)
         {
             if (bCanDebug) { Log.Green("input buffer Jump"); }
             PlayerStateManager.ChangeState(JumpState);
         }
-        else if (JumpBufferTimer > 0 && bIsGrounded && bShortJump)
+        else if (jumpBufferTimer > 0 && bIsGrounded && bShortJump)
         {
-            if (bCanDebug) { Log.yellow("input buffer Short Jump"); }
+            if (bCanDebug) { Log.Yellow("input buffer Short Jump"); }
             PlayerStateManager.ChangeState(JumpState);
             bShortJump = false;
         }
-        else if (JumpBufferTimer < 0)
+        else if (jumpBufferTimer < 0)
         {
             bIsInputbuffer = false;
             bShortJump = false;
-            if (bCanDebug) { Log.yellow("Input buffer time out"); }
+            if (bCanDebug) { Log.Yellow("Input buffer time out"); }
         }
     }
 }

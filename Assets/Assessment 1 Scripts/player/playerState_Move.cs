@@ -11,24 +11,24 @@ public class playerState_Move : player_StateBase
     {
         if (context.performed)
         {
-            if (bCanDebug) { Log.Green("move"); }
+            if (BCanDebug) { Log.Green("move"); }
 
-            pC.bIsMoving = true;
+            PC.bIsMoving = true;
 
-            pC.movementInput = context.ReadValue<float>();
-            pC.Cmove = pC.StartCoroutine(pC.MoveUpdate());
+            PC.movementInput = context.ReadValue<float>();
+            PC.Cmove = PC.StartCoroutine(PC.MoveUpdate());
         }
 
         if (context.canceled)
         {
-            if (bCanDebug) { Log.yellow("stop"); }
+            if (BCanDebug) { Log.Yellow("stop"); }
 
-            pC.bIsMoving = false;
+            PC.bIsMoving = false;
 
-            pC.movementInput = 0;
+            PC.movementInput = 0;
 
-            if (pC.bIsGrounded)
-                rb2D.linearVelocity = new Vector2(0, 0);
+            if (PC.bIsGrounded)
+                Rb2D.linearVelocity = new Vector2(0, 0);
         }
     }
 }

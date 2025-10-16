@@ -8,7 +8,7 @@ public class playerState_Idle : player_StateBase
     public override void Enter()
     {
         base.Enter();
-        rb2D.linearVelocity = new Vector2(0, 0);
+        Rb2D.linearVelocity = new Vector2(0, 0);
     }
 
     public override void Exit()
@@ -26,20 +26,20 @@ public class playerState_Idle : player_StateBase
     {
         if (context.performed)
         {
-            if (pC.bIsGrounded && !pC.bIsInputbuffer)
-                playerStateManager.ChangeState(pC.JumpState);
+            if (PC.bIsGrounded && !PC.bIsInputbuffer)
+                PlayerStateManager.ChangeState(PC.JumpState);
             else
-                pC.InputBufferUpdate();
+                PC.InputBufferUpdate();
         }
 
-        if (context.canceled && pC.bJumpGravityReset)              //buttom up
+        if (context.canceled && PC.bJumpGravityReset)              //buttom up
         {
-            if (bCanDebug) { Log.Green("Fall"); }
+            if (BCanDebug) { Log.Green("Fall"); }
             //Jump(pC.originalGravityScale, pC.JumpDownForce, false);   //reduce gravity and add down force
         }
-        else if (context.canceled && pC.bIsInputbuffer)
+        else if (context.canceled && PC.bIsInputbuffer)
         {
-            pC.bShortJump = true;
+            PC.bShortJump = true;
         }
 
     }

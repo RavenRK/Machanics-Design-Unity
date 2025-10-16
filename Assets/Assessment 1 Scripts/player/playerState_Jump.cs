@@ -8,34 +8,34 @@ public class playerState_Jump : player_StateBase
     {
         base.Enter();
         
-        if (pC.bIsGrounded && pC.bJumpGravityReset)
-            Jump(pC.originalGravityScale, pC.JumpForce, true);
-        else if (pC.bShortJump)
-            Jump(pC.JumpGravity, pC.JumpForce, true);
+        if (PC.bIsGrounded && PC.bJumpGravityReset)
+            Jump(PC.originalGravityScale, PC.jumpForce, true);
+        else if (PC.bShortJump)
+            Jump(PC.jumpGravity, PC.jumpForce, true);
     }
 
     #region --JUMP---
     public void Jump(InputAction.CallbackContext context)
     {
 
-        if (context.canceled && pC.bJumpGravityReset)              //buttom up
+        if (context.canceled && PC.bJumpGravityReset)              //bottom up
         {
-            Jump(pC.originalGravityScale, pC.JumpDownForce, false);   //reduce gravity and add down force
+            Jump(PC.originalGravityScale, PC.jumpDownForce, false);   //reduce gravity and add down force
         }
-        else if (context.canceled && pC.bIsInputbuffer)
+        else if (context.canceled && PC.bIsInputbuffer)
         {
-            pC.bShortJump = true;
+            PC.bShortJump = true;
         }
 
     }
     public void Jump(float newGravityScale, float newJumpPower, bool allowGravityReset)
     {
-        rb2D.AddForce(Vector2.up * newJumpPower, ForceMode2D.Impulse);
-        rb2D.gravityScale = newGravityScale;
-        pC.bJumpGravityReset = allowGravityReset;                          //should we let the player recast Down force at end Jump
+        Rb2D.AddForce(Vector2.up * newJumpPower, ForceMode2D.Impulse);
+        Rb2D.gravityScale = newGravityScale;
+        PC.bJumpGravityReset = allowGravityReset;                          //should we let the player recast Down force at end Jump
 
-        rb2D.linearDamping = pC.JumpLinearDamping;
-        pC.CGroundUpdate = pC.StartCoroutine(pC.GroundCheckUpdate());
+        Rb2D.linearDamping = PC.jumpLinearDamping;
+        PC.CGroundUpdate = PC.StartCoroutine(PC.GroundCheckUpdate());
     }
 
 
