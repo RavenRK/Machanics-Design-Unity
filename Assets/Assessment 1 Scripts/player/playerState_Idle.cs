@@ -4,43 +4,27 @@ using UnityEngine.Windows;
 
 public class playerState_Idle : player_StateBase
 {
-    public playerState_Idle(playerCharacter playerCharacter, playerStateManager playerStateManager) : base(playerCharacter, playerStateManager) { }
+    public playerState_Idle(playerCharacter playerCharacter, playerStateManager StateManager) : base(playerCharacter, StateManager) { }
+
+
+
     public override void Enter()
     {
-        base.Enter();
-        Rb2D.linearVelocity = new Vector2(0, 0);
-    }
+        //PC.rb2D.linearVelocity = new Vector2(0, 0);
 
-    public override void Exit()
+    }
+    public override void OnJumpPressed()
     {
-        base.Exit();
+        base.OnJumpPressed();
+        Log.Purple("Idle > Jump ");
+        StateManager.ChangeState(StateManager.JumpState);
     }
 
-    public override void Update()
+    public override void OnMove(Vector2 direction)
     {
-        base.Update();
-
+        base.OnMove(direction);
+        Log.Purple("idle > move");
+        StateManager.ChangeState(StateManager.MoveState);
     }
-    
-    public void Jump(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            if (PC.bIsGrounded && !PC.bIsInputbuffer)
-                PlayerStateManager.ChangeState(PC.JumpState);
-            else
-                PC.InputBufferUpdate();
-        }
 
-        if (context.canceled && PC.bJumpGravityReset)              //buttom up
-        {
-            if (BCanDebug) { Log.Green("Fall"); }
-            //Jump(pC.originalGravityScale, pC.JumpDownForce, false);   //reduce gravity and add down force
-        }
-        else if (context.canceled && PC.bIsInputbuffer)
-        {
-            PC.bShortJump = true;
-        }
-
-    }
 }

@@ -2422,10 +2422,13 @@ PrefabInstance:
       addedObject: {fileID: 1513426688}
     - targetCorrespondingSourceObject: {fileID: 1667636342438995758, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1513426695}
+      addedObject: {fileID: 1513426698}
     - targetCorrespondingSourceObject: {fileID: 1667636342438995758, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1513426698}
+      addedObject: {fileID: 1513426702}
+    - targetCorrespondingSourceObject: {fileID: 1667636342438995758, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1513426701}
   m_SourcePrefab: {fileID: 100100000, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
 --- !u!1 &1513426687 stripped
 GameObject:
@@ -2459,9 +2462,9 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1513426695}
+      - m_Target: {fileID: 1513426687}
         m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
-        m_MethodName: Jump
+        m_MethodName: 
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2475,9 +2478,9 @@ MonoBehaviour:
     m_ActionName: 'player/jump[/Keyboard/space]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1513426695}
+      - m_Target: {fileID: 1513426687}
         m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
-        m_MethodName: move
+        m_MethodName: 
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2494,18 +2497,6 @@ MonoBehaviour:
   m_DefaultActionMap: player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 137318336}
---- !u!114 &1513426695
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1513426687}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 398e41ade13e95d4ca9d4e620e7ba7c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1513426698
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2518,27 +2509,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30bc69a0d669e1144b786a901cab65a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 10
-  JumpGravity: 5
-  JumpDownForce: 5
-  JumpBufferTimer: 0.2
-  JumpLinearDamping: 0
-  originalJumpBufferTimer: 0
-  originalGravityScale: 0
-  bIsInputbuffer: 0
-  bShortJump: 0
-  originalLinearDamping: 0
+  jumpForce: 25
+  jumpGravity: 3
+  jumpDownForce: -10
+  jumpLinearDamping: 0.5
+  jumpBufferTimer: 0.2
   bJumpGravityReset: 1
+  originalLinearDamping: 0
   moveSpeed: 5
-  movementInput: 0
-  IsMoving: 0
-  RaycastPosition: {fileID: 0}
-  GroundLayer:
+  raycastPosition: {fileID: 2067620923}
+  gGroundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   bCanDebug: 0
-  rb2D: {fileID: 0}
-  bIsGrounded: 0
+--- !u!114 &1513426701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1513426687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bc495acc8edfe746862a7be3755ab30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1513426702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1513426687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 253bbbfa291ddd24ab8d9c370e3cf082, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1674682929
 GameObject:
   m_ObjectHideFlags: 0
@@ -2584,6 +2591,11 @@ Transform:
   - {fileID: 37366074}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &2067620923 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5816422030429470223, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
+  m_PrefabInstance: {fileID: 1338255539}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

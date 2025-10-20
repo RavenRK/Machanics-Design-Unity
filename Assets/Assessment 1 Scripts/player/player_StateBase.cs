@@ -4,19 +4,31 @@ using UnityEngine.Windows;
 
 public class player_StateBase
 {
-    protected bool BCanDebug = false;
-    protected playerStateManager PlayerStateManager;
+
+    public PlayerInputHandler inputHandler;
+
+    protected playerStateManager StateManager;
     protected playerCharacter PC;
 
-    protected Rigidbody2D Rb2D;
-
-    protected player_StateBase(playerCharacter playerCharacter, playerStateManager playerStateManager)
+    private void Start()
     {
-        this.PlayerStateManager = playerStateManager;
+        // Subscribe the current state to input events
+        inputHandler.OnMove += dir => StateManager.CurrentState?.OnMove(dir);
+        inputHandler.OnJumpPressed += () => StateManager.CurrentState?.OnJumpPressed();
+        inputHandler.OnJumpReleased += () => StateManager.CurrentState?.OnJumpReleased();
+    }
+
+    protected player_StateBase(playerCharacter playerCharacter, playerStateManager StateManager)
+    {
+        this.StateManager = StateManager;
         this.PC = playerCharacter;
 
     }
-    public virtual void Enter() => Rb2D = PC.rb2D;
-    public virtual void Update() { }
+    public virtual void Enter() { }
+    public virtual void FixedUpdate() { }
     public virtual void Exit() { }
+
+    public virtual void OnMove(Vector2 direction) { }
+    public virtual void OnJumpPressed() { }
+    public virtual void OnJumpReleased() {  }
 }

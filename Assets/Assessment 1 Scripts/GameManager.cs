@@ -14,12 +14,12 @@ public class GameManager : MonoBehaviour
         //spawn player in
 
 
-        m_PlayerRef.GetComponent<playerCharacter>().OnPlayerDead += RespawnPlayer;
+        //m_PlayerRef.GetComponent<playerCharacter>().OnPlayerDead += RespawnPlayer;
     }
 
     private void OnDestroy()
     {
-        m_PlayerRef.GetComponent<playerCharacter>().OnPlayerDead -= RespawnPlayer;
+        //m_PlayerRef.GetComponent<playerCharacter>().OnPlayerDead -= RespawnPlayer;
     }
 
 

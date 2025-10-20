@@ -15,10 +15,10 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Movement",
+                    "name": "move",
                     "type": "Value",
                     "id": "14daac3c-b81f-4fc7-8637-249704c46932",
-                    "expectedControlType": "",
+                    "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -43,7 +43,7 @@
                     "interactions": "",
                     "processors": "Invert",
                     "groups": "",
-                    "action": "Movement",
+                    "action": "move",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -54,7 +54,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
+                    "action": "move",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
