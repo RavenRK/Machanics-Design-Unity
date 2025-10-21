@@ -1,21 +1,25 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
+
 public class playerState_Jump : player_StateBase
 {
-    public playerState_Jump(playerCharacter playerCharacter, playerStateManager StateManager) : base(playerCharacter, StateManager) { }
-
+    public playerState_Jump(playerCharacter playerCharacter, playerStateManager StateManager,
+        PlayerCoroutineHandler coroutineHandler) : base(playerCharacter, StateManager, coroutineHandler) { }
     public override void Enter()
     {
         base.Enter();
-        Log.Purple("in jump do jump");
         Jump(PC.jumpGravity, PC.jumpForce, true);
+    }
+
+    public override void Exit() 
+    {
+        base.Exit(); 
+        //reset thing even if they have space down for ever
     }
 
     #region --JUMP---
     public override void OnJumpReleased()
     {
         base.OnJumpReleased();
-        Log.Purple("air Jump relesed");
         if (PC.bJumpGravityReset)
         {
             Jump(PC.originalGravityScale, PC.jumpDownForce, false);
