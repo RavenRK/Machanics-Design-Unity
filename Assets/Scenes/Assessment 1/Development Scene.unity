@@ -2346,7 +2346,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 108172778}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.001794075, w: 0.9999984}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.0056956, y: -4.3646793, z: 0}
   m_LocalScale: {x: 6.1539187, y: 1.7775471, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2996,7 +2996,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.070798874
+        value: 0.089673996
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -3137,7 +3137,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpForce: 30
-  CoyoteTimeJumPower: 44
   jumpGravity: 3
   jumpDownForce: -7
   jumpLinearDamping: 0.5
@@ -3148,7 +3147,7 @@ MonoBehaviour:
   bCanJump: 0
   originalLinearDamping: 0
   coyoteTimeTimer: 0
-  originalCoyoteTimeTimer: 0.5
+  originalCoyoteTimeTimer: 0.25
   bCanCoyoteJump: 0
   moveSpeed: 10
   MaxMoveSpeed: 10
