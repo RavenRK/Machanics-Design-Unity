@@ -19,7 +19,8 @@ public class playerState_Jump : player_StateBase
             else if (PC.bCanCoyoteJump)
             {
                 if (StateManager.BDebug_State_Jump) Log.Red("Input CoyoteTimeJumPower Activated");
-                Jump(PC.jumpGravity, PC.CoyoteTimeJumPower, true);
+                PC.rb2D.linearVelocity = new Vector2(PC.moveSpeed, 0)* PC.Movedirection;
+                Jump(PC.jumpGravity, PC.jumpForce, true);
                 PC.bCanJump = false;
                 PC.bCanCoyoteJump = false;
             }
@@ -29,7 +30,7 @@ public class playerState_Jump : player_StateBase
                 Jump(PC.jumpGravity, PC.jumpForce, true);
                 PC.bCanJump = false; 
             }
-            CH.RunCoroutine(CH.VerticalDirectionCheck(), CH.C_VerticalDirectionCheck);
+            CH.RunCoroutine(CH.JumpApexUpdate(),CH.C_CoyoteTimeCheck);
         }
         else
         {
@@ -47,10 +48,8 @@ public class playerState_Jump : player_StateBase
     {
         base.OnJumpReleased();
         if (PC.bJumpGravityReset)
-        {
             Jump(PC.originalGravityScale, PC.jumpDownForce, false);
-            StateManager.ChangeState(StateManager.AirState);
-        }
+
     }
 
     #region --JUMP---

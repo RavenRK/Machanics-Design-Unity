@@ -7,11 +7,12 @@ public class PlayerCoroutineHandler : MonoBehaviour
     public playerCharacter PC { get; private set; }
     public playerStateManager StateManager { get; private set; }
 
-    public Coroutine C_GroundCheck { get; private set; }
+    public Coroutine C_GroundCheck { get; private set; } // update
     public Coroutine C_VerticalDirectionCheck { get; private set; }
     public Coroutine C_InputBufferCheck { get; private set; }
     public Coroutine C_CoyoteTimeCheck { get; private set; }
     public Coroutine C_MoveCheck { get; private set; }
+    public Coroutine C_JumpApexCheck { get; private set; }
 
     public void Awake()
     {
@@ -26,13 +27,24 @@ public class PlayerCoroutineHandler : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
         Log.Green("Grounded Detected");
-            PC.originalValuesReset();
-            StateManager.ChangeState(StateManager.IdleState);
+        PC.originalValuesReset();
+        StateManager.ChangeState(StateManager.IdleState);
         C_GroundCheck = null;
     }
+    public IEnumerator JumpApexUpdate()
+    {
+        while (PC.rb2D.linearVelocity.y !< 1)
+        {
+            yield return null;
+        }
+        StateManager.ChangeState(StateManager.JumpApex);
+        C_JumpApexCheck = null;
+    }
+    // check of we are falling
+    #region VerticalDirectionCheck
     public IEnumerator VerticalDirectionCheck()
     {
-        while (PC.rb2D.linearVelocity.y > -0.25)
+        while (PC.rb2D.linearVelocity.y > -1)
         {
             yield return null;
         }
@@ -40,6 +52,9 @@ public class PlayerCoroutineHandler : MonoBehaviour
         yield return new WaitForEndOfFrame();
         C_VerticalDirectionCheck = null;
     }
+    #endregion
+    //Run input buffer
+    #region Input Buffer Update
     public IEnumerator InputBufferUpdate()
     {
         PC.bIsInputbuffer = true;
@@ -61,8 +76,12 @@ public class PlayerCoroutineHandler : MonoBehaviour
         }
         C_InputBufferCheck = null;
     }
+    #endregion
+    //timer for Coyote Time
+    #region CoyoteTimeUpdate
     public IEnumerator CoyoteTimeUpdate()
     {
+        Log.Red("coyote timer start");
         PC.coyoteTimeTimer = PC.originalCoyoteTimeTimer;
         PC.bCanCoyoteJump = true;
         while (PC.coyoteTimeTimer > 0)
@@ -70,9 +89,13 @@ public class PlayerCoroutineHandler : MonoBehaviour
             PC.coyoteTimeTimer -= Time.deltaTime;
             yield return null;
         }
-
+        Log.Red("coyote end");
+        PC.bCanCoyoteJump = false;
         C_CoyoteTimeCheck = null;
     }
+    #endregion
+    //timer for when to move
+    #region MoveUpdate
     public IEnumerator MoveUpdate()
     {
         while (PC.Movedirection != Vector2.zero)
@@ -82,6 +105,7 @@ public class PlayerCoroutineHandler : MonoBehaviour
         }
         StateManager.ChangeState(StateManager.IdleState);
     }
+    #endregion
     #region Start / Stop Coroutines Func
     public Coroutine RunCoroutine(IEnumerator IEnum, Coroutine C_coroutine)
     {

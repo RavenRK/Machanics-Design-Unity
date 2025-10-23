@@ -16,7 +16,6 @@ public class playerCharacter : MonoBehaviour
     #region --JUMP Settings---
     [Header("basic Jump Settings")]
     [SerializeField] public float jumpForce = 10f;
-    [SerializeField] public float CoyoteTimeJumPower = 0.2f;
     [SerializeField] public float jumpGravity = 5f;
     [SerializeField] public float jumpDownForce = 5f;
     [SerializeField] public float jumpLinearDamping = 0.5f;

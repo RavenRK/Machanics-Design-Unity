@@ -22,6 +22,7 @@ public class playerStateManager : MonoBehaviour
     public playerState_Air AirState { get; private set; }
     public playerState_Move MoveState { get; private set; }
     public playerState_Jump JumpState { get; private set; }
+    public playerState_JumpApex JumpApex { get; private set; }
     #endregion
 
     private System.Action<Vector2> moveCallback;
@@ -41,6 +42,7 @@ public class playerStateManager : MonoBehaviour
         AirState = new playerState_Air(playerCharacter, this, coroutineHandler);
         MoveState = new playerState_Move(playerCharacter, this, coroutineHandler);
         JumpState = new playerState_Jump(playerCharacter, this, coroutineHandler);
+        JumpApex = new playerState_JumpApex(playerCharacter, this, coroutineHandler);
 
         Initialize(IdleState);
     }
