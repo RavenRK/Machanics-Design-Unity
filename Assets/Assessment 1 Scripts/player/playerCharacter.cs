@@ -22,10 +22,10 @@ public class playerCharacter : MonoBehaviour
 
     [Header("JumpBuffer Settings")]
     [SerializeField] public float jumpBufferTimer = 0.2f;
-    public bool bIsInputbuffer;
-    public bool bShortJump;
-    public bool bJumpGravityReset;
-    public bool bCanJump;
+    [HideInInspector] public bool bIsInputbuffer;
+    [HideInInspector] public bool bShortJump;
+    [HideInInspector] public bool bJumpGravityReset;
+    [HideInInspector] public bool bCanJump;
     //Original Value
     public float originalJumpBufferTimer { get; private set; }
     public float originalGravityScale { get; private set; }
@@ -71,13 +71,9 @@ public class playerCharacter : MonoBehaviour
         bCanJump = true;
         //
     }
-    private void Start()
-    {
-
-    }
     private void FixedUpdate()
     {
-        bIsGrounded = Physics2D.Raycast(raycastPosition.position, Vector2.down, 0.075f, gGroundLayer);     //ray cast for check grounded
+        bIsGrounded = Physics2D.Raycast(raycastPosition.position, Vector2.down, 0.05f, gGroundLayer);     //ray cast for check grounded
     }
     public void originalValuesReset()
     {

@@ -11,6 +11,8 @@ public class PlayerCoroutineHandler : MonoBehaviour
     public Coroutine C_VerticalDirectionCheck { get; private set; }
     public Coroutine C_InputBufferCheck { get; private set; }
     public Coroutine C_CoyoteTimeCheck { get; private set; }
+    public Coroutine C_MoveCheck { get; private set; }
+
     public void Awake()
     {
         PC = GetComponent<playerCharacter>();
@@ -24,10 +26,8 @@ public class PlayerCoroutineHandler : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
         Log.Green("Grounded Detected");
-        PC.originalValuesReset();
-        StateManager.ChangeState(StateManager.IdleState);
-
-        //PC.originalValuesReset();
+            PC.originalValuesReset();
+            StateManager.ChangeState(StateManager.IdleState);
         C_GroundCheck = null;
     }
     public IEnumerator VerticalDirectionCheck()
@@ -42,6 +42,7 @@ public class PlayerCoroutineHandler : MonoBehaviour
     }
     public IEnumerator InputBufferUpdate()
     {
+        PC.bIsInputbuffer = true;
         PC.jumpBufferTimer = PC.originalJumpBufferTimer;
         while (PC.jumpBufferTimer > 0)
         {
@@ -49,7 +50,8 @@ public class PlayerCoroutineHandler : MonoBehaviour
             if (PC.bIsGrounded)
             {
                 Log.Green("Input Buffer Jump Activated");
-                       StateManager.ChangeState(StateManager.JumpState);
+                PC.bCanJump = true;
+                StateManager.ChangeState(StateManager.JumpState);
                 break;
             }
             yield return null;
@@ -70,6 +72,15 @@ public class PlayerCoroutineHandler : MonoBehaviour
         }
         PC.bCanCoyoteJump = false;
         C_CoyoteTimeCheck = null;
+    }
+    public IEnumerator MoveUpdate()
+    {
+        while (PC.Movedirection != Vector2.zero)
+        {
+            yield return null;
+            PC.rb2D.linearVelocity = new Vector2(PC.Movedirection.x * PC.moveSpeed, PC.rb2D.linearVelocity.y);
+        }
+        StateManager.ChangeState(StateManager.IdleState);
     }
     #region Start / Stop Coroutines Func
     public Coroutine RunCoroutine(IEnumerator IEnum, Coroutine C_coroutine)

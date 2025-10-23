@@ -7,14 +7,14 @@ public class playerState_Air : player_StateBase
 
     public override void Enter()
     {
-        PC.bIsInputbuffer = false;
+        if (!PC.bIsInputbuffer) // ground check
         CH.RunCoroutine(CH.GroundCheckUpdate(), CH.C_GroundCheck);
-        if (StateManager.PreviousState == StateManager.MoveState)
-        {
-            CH.RunCoroutine(CH.CoyoteTimeUpdate(), CH.C_CoyoteTimeCheck);
-        }
-    }
 
+        PC.bIsInputbuffer = false;
+
+        if (StateManager.PreviousState == StateManager.MoveState) // Start Coyote time
+            CH.RunCoroutine(CH.CoyoteTimeUpdate(), CH.C_CoyoteTimeCheck);
+    }
     public override void FixedUpdate()
     {
         base.FixedUpdate();
@@ -22,15 +22,9 @@ public class playerState_Air : player_StateBase
     public override void OnJumpPressed()
     {
         if (StateManager.PreviousState == StateManager.JumpState)
-        {
             CH.RunCoroutine(CH.InputBufferUpdate(), CH.C_InputBufferCheck);
-            PC.bIsInputbuffer = true;
-        }
         else if (PC.bCanCoyoteJump == true)
-        {
             StateManager.ChangeState(StateManager.JumpState);
-        }
-
 
     }
     public override void OnJumpReleased()
@@ -38,13 +32,12 @@ public class playerState_Air : player_StateBase
         if (PC.bIsInputbuffer)
         {
             PC.bShortJump = true;
-            Log.Yellow("set short jump");
+            if (StateManager.BDebug_State_Air) Log.Yellow("set short jump");
         }
         if (PC.bJumpGravityReset)
         {
             Jump(PC.originalGravityScale, PC.jumpDownForce, false);
         }
-        StateManager.ChangeState(StateManager.AirState);
     }
     public void Jump(float newjumpGravity, float newjumpForce, bool allowGravityReset)
     {
@@ -52,4 +45,10 @@ public class playerState_Air : player_StateBase
         PC.rb2D.gravityScale = newjumpGravity;
         PC.bJumpGravityReset = allowGravityReset;
     }
+    #region Empty
+    public override void Exit()
+    {
+        base.Exit();
+    }
+    #endregion
 }

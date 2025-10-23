@@ -14,11 +14,11 @@ public class player_StateBase
         CH = coroutineHandler;
     }
     public virtual void Enter() { }
-    public virtual void FixedUpdate() 
+    public virtual void FixedUpdate() { }
+    public virtual void Exit() 
     {
-
+        CH.StopAllCoroutines();
     }
-    public virtual void Exit() { }
 
     public virtual void OnMove(Vector2 direction) 
     {

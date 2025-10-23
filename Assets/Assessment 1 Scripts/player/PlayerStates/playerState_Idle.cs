@@ -7,16 +7,17 @@ public class playerState_Idle : player_StateBase
 
     public override void Enter()
     {
-        if (PC.Movedirection != Vector2.zero)
-            StateManager.ChangeState(StateManager.MoveState);
-
-        //CH.RunCoroutine(CH.VerticalDirectionCheck(), CH.C_VerticalDirectionCheck);
-
-        if (PC.Movedirection == Vector2.zero)
-            PC.rb2D.linearVelocity *= PC.ApplyLandingDamping;
         PC.bCanJump = true;
-    }
 
+        if (PC.Movedirection != Vector2.zero)// >> ye input
+            StateManager.ChangeState(StateManager.MoveState);// >> start move
+
+        if (PC.Movedirection == Vector2.zero)// >> no input
+            PC.rb2D.linearVelocity *= PC.ApplyLandingDamping;// >> fix sliding
+
+        CH.RunCoroutine(CH.VerticalDirectionCheck(), CH.C_VerticalDirectionCheck);
+
+    }
     public override void OnJumpPressed()
     {
         base.OnJumpPressed();
@@ -27,5 +28,11 @@ public class playerState_Idle : player_StateBase
         base.OnMove(direction);
         StateManager.ChangeState(StateManager.MoveState);
     }
+    #region Empty
+    public override void Exit()
+    {
+        base.Exit();
+    }
 
+    #endregion
 }

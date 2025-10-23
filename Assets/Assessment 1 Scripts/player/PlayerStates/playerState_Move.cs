@@ -6,12 +6,8 @@ public class playerState_Move : player_StateBase
         PlayerCoroutineHandler coroutineHandler) : base(playerCharacter, StateManager, coroutineHandler) { }
     public override void Enter() 
     { 
-        CH.RunCoroutine(CH.VerticalDirectionCheck(), CH.C_VerticalDirectionCheck);
-    }
-    public override void Exit() { }
-    public override void OnMove(Vector2 direction)
-    {
-        base.OnMove(direction);
+        CH.RunCoroutine(CH.VerticalDirectionCheck(), CH.C_VerticalDirectionCheck); //we falling check
+        CH.RunCoroutine(CH.MoveUpdate(), CH.C_MoveCheck); // start moving
     }
 
     public override void OnJumpPressed()
@@ -19,16 +15,21 @@ public class playerState_Move : player_StateBase
         base.OnJumpPressed();
         StateManager.ChangeState(StateManager.JumpState);
     }
+
+    #region Empty
+    public override void Exit()
+    {
+        base.Exit();
+    }
+    public override void OnMove(Vector2 direction)
+    {
+        base.OnMove(direction);
+    }
     public override void FixedUpdate()
     {
         base.FixedUpdate();
-        if (PC.Movedirection != Vector2.zero)
-        {
-            PC.rb2D.linearVelocity = new Vector2(PC.Movedirection.x * PC.moveSpeed, PC.rb2D.linearVelocity.y);
-        }
-        else
-        {
-            StateManager.ChangeState(StateManager.IdleState);
-        }
+
     }
+
+    #endregion
 }

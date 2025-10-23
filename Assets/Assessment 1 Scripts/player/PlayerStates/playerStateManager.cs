@@ -3,8 +3,13 @@ using System.Collections;
 
 public class playerStateManager : MonoBehaviour
 {
+    [Header("DebugStates")]
     public bool BDebug_CurrentState = false;
     public bool BDebug_StateChange = false;
+    public bool BDebug_State_Idle = false;
+    public bool BDebug_State_Move = false;
+    public bool BDebug_State_Jump = false;
+    public bool BDebug_State_Air = false;
 
     public player_StateBase CurrentState { get; private set; }
     public player_StateBase PreviousState { get; private set; }
@@ -48,18 +53,6 @@ public class playerStateManager : MonoBehaviour
     {
         CurrentState.FixedUpdate();
     }
-
-    public Coroutine RunCoroutine(IEnumerator routine)
-    {
-        return StartCoroutine(routine);
-    }
-
-    public void StopPlayerCoroutine(Coroutine coroutine)
-    {
-        if (coroutine != null)
-            StopCoroutine(coroutine);
-    }
-
     #region player input event subscriptions
     private void OnEnable()
     {
