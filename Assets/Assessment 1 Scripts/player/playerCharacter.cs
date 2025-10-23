@@ -16,6 +16,7 @@ public class playerCharacter : MonoBehaviour
     #region --JUMP Settings---
     [Header("basic Jump Settings")]
     [SerializeField] public float jumpForce = 10f;
+    [SerializeField] public float CoyoteTimeJumPower = 0.2f;
     [SerializeField] public float jumpGravity = 5f;
     [SerializeField] public float jumpDownForce = 5f;
     [SerializeField] public float jumpLinearDamping = 0.5f;
@@ -29,7 +30,7 @@ public class playerCharacter : MonoBehaviour
     //Original Value
     public float originalJumpBufferTimer { get; private set; }
     public float originalGravityScale { get; private set; }
-    public float originalLinearDamping;
+    [HideInInspector] public float originalLinearDamping;
 
     [Header("Coyote Time Settings")]
     public float coyoteTimeTimer;
@@ -42,17 +43,17 @@ public class playerCharacter : MonoBehaviour
     public float moveSpeed = 2.5f;
     public float MaxMoveSpeed = 10f;
     public float MaxFallingSpeed = 25f;
-    public Vector2 Movedirection;
+    [HideInInspector] public Vector2 Movedirection;
 
     [Header("Movement other settings")]
     public float ApplyLandingDamping = 0.8f;
-    public bool BCanOriginalValuesReset;
+    [HideInInspector] public bool BCanOriginalValuesReset;
     #endregion
 
     [Header("checks")]
     public Transform raycastPosition;
     public LayerMask gGroundLayer;
-    public bool bIsGrounded;
+    [HideInInspector] public bool bIsGrounded;
 
     public Rigidbody2D rb2D {get; private set; }
 

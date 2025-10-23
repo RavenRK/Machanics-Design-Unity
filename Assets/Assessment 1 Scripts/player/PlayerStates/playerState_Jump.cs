@@ -16,11 +16,18 @@ public class playerState_Jump : player_StateBase
                 PC.bShortJump = false;
                 PC.bCanJump = false;
             }
+            else if (PC.bCanCoyoteJump)
+            {
+                if (StateManager.BDebug_State_Jump) Log.Red("Input CoyoteTimeJumPower Activated");
+                Jump(PC.jumpGravity, PC.CoyoteTimeJumPower, true);
+                PC.bCanJump = false;
+                PC.bCanCoyoteJump = false;
+            }
             else
             {
                 if (StateManager.BDebug_State_Jump) Log.Red("Jump Activated");
                 Jump(PC.jumpGravity, PC.jumpForce, true);
-                PC.bCanJump = false;
+                PC.bCanJump = false; 
             }
             CH.RunCoroutine(CH.VerticalDirectionCheck(), CH.C_VerticalDirectionCheck);
         }

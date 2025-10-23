@@ -70,7 +70,7 @@ public class PlayerCoroutineHandler : MonoBehaviour
             PC.coyoteTimeTimer -= Time.deltaTime;
             yield return null;
         }
-        PC.bCanCoyoteJump = false;
+
         C_CoyoteTimeCheck = null;
     }
     public IEnumerator MoveUpdate()

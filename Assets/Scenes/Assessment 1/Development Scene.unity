@@ -3136,7 +3136,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30bc69a0d669e1144b786a901cab65a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 25
+  jumpForce: 30
+  CoyoteTimeJumPower: 44
   jumpGravity: 3
   jumpDownForce: -7
   jumpLinearDamping: 0.5
@@ -3188,7 +3189,7 @@ MonoBehaviour:
   BDebug_StateChange: 1
   BDebug_State_Idle: 0
   BDebug_State_Move: 0
-  BDebug_State_Jump: 0
+  BDebug_State_Jump: 1
   BDebug_State_Air: 0
 --- !u!4 &1513426704 stripped
 Transform:
