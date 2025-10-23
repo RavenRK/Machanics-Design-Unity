@@ -2795,11 +2795,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3600401525870630746, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10.37
+      value: -31.17
       objectReference: {fileID: 0}
     - target: {fileID: 3600401525870630746, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.15
+      value: 1.47
       objectReference: {fileID: 0}
     - target: {fileID: 3600401525870630746, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3153,7 +3153,7 @@ MonoBehaviour:
   MaxMoveSpeed: 10
   MaxFallingSpeed: 25
   Movedirection: {x: 0, y: 0}
-  ApplyLandingDamping: 0.8
+  ApplyLandingDamping: 0.2
   BCanOriginalValuesReset: 0
   raycastPosition: {fileID: 2067620923}
   gGroundLayer:
@@ -3184,8 +3184,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 253bbbfa291ddd24ab8d9c370e3cf082, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BDebug_CurrentState: 1
-  BDebug_StateChange: 0
+  BDebug_CurrentState: 0
+  BDebug_StateChange: 1
+  BDebug_State_Idle: 0
+  BDebug_State_Move: 0
+  BDebug_State_Jump: 0
+  BDebug_State_Air: 0
 --- !u!4 &1513426704 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3600401525870630746, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
