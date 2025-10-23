@@ -1,6 +1,5 @@
 using UnityEngine;
-using System.Collections;
-using UnityEngine.Events;
+
 
 #region --Debug---
 public static class Log
@@ -23,20 +22,31 @@ public class playerCharacter : MonoBehaviour
 
     [Header("JumpBuffer Settings")]
     [SerializeField] public float jumpBufferTimer = 0.2f;
-
+    public bool bIsInputbuffer;
+    public bool bShortJump;
     public bool bJumpGravityReset;
-
-    //Original Values
+    public bool bCanJump;
+    //Original Value
     public float originalJumpBufferTimer { get; private set; }
     public float originalGravityScale { get; private set; }
     public float originalLinearDamping;
 
+    [Header("Coyote Time Settings")]
+    public float coyoteTimeTimer;
+    public float originalCoyoteTimeTimer;
+    public bool bCanCoyoteJump = false;
+
     #endregion
     #region --Move Settings---
     [Header("Move settings")]
-    public float moveSpeed = 5f;
+    public float moveSpeed = 2.5f;
+    public float MaxMoveSpeed = 10f;
+    public float MaxFallingSpeed = 25f;
     public Vector2 Movedirection;
 
+    [Header("Movement other settings")]
+    public float ApplyLandingDamping = 0.8f;
+    public bool BCanOriginalValuesReset;
     #endregion
 
     [Header("checks")]
@@ -54,8 +64,11 @@ public class playerCharacter : MonoBehaviour
         originalGravityScale = rb2D.gravityScale;
         originalLinearDamping = rb2D.linearDamping;
         originalJumpBufferTimer = jumpBufferTimer;
-        //bIsInputbuffer = false;
+        bIsInputbuffer = false;
+        bShortJump = false;
         bJumpGravityReset = false;
+        BCanOriginalValuesReset = false;
+        bCanJump = true;
         //
     }
     private void Start()
@@ -64,9 +77,14 @@ public class playerCharacter : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        bIsGrounded = Physics2D.Raycast(raycastPosition.position, Vector2.down, 0.05f, gGroundLayer);     //ray cast for check grounded
+        bIsGrounded = Physics2D.Raycast(raycastPosition.position, Vector2.down, 0.075f, gGroundLayer);     //ray cast for check grounded
     }
-
+    public void originalValuesReset()
+    {
+        jumpBufferTimer = originalJumpBufferTimer;
+        rb2D.gravityScale = originalGravityScale;
+        rb2D.linearDamping = originalLinearDamping;
+    }
 
 
 }

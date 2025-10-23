@@ -5,62 +5,51 @@ public class playerState_Air : player_StateBase
     public playerState_Air(playerCharacter playerCharacter, playerStateManager StateManager,
         PlayerCoroutineHandler coroutineHandler) : base(playerCharacter, StateManager, coroutineHandler) { }
 
-    bool bShortJump = false;
-    public bool bIsInputbuffer = false;
-
     public override void Enter()
     {
-        //CH.StartCoroutine(CH.GroundCheckUpdate());
-        bShortJump = false;
-        bIsInputbuffer = false;
+        PC.bIsInputbuffer = false;
+        CH.RunCoroutine(CH.GroundCheckUpdate(), CH.C_GroundCheck);
+        if (StateManager.PreviousState == StateManager.MoveState)
+        {
+            CH.RunCoroutine(CH.CoyoteTimeUpdate(), CH.C_CoyoteTimeCheck);
+        }
     }
 
     public override void FixedUpdate()
     {
         base.FixedUpdate();
-        if (PC.bIsGrounded)
-        {
-            PC.rb2D.linearDamping = PC.originalLinearDamping;
-            StateManager.ChangeState(StateManager.IdleState);
-        }
     }
     public override void OnJumpPressed()
     {
-        //InputBuffer(bShortJump);
+        if (StateManager.PreviousState == StateManager.JumpState)
+        {
+            CH.RunCoroutine(CH.InputBufferUpdate(), CH.C_InputBufferCheck);
+            PC.bIsInputbuffer = true;
+        }
+        else if (PC.bCanCoyoteJump == true)
+        {
+            StateManager.ChangeState(StateManager.JumpState);
+        }
+
+
     }
     public override void OnJumpReleased()
     {
-        if (bIsInputbuffer)
-            bShortJump = true;
+        if (PC.bIsInputbuffer)
+        {
+            PC.bShortJump = true;
+            Log.Yellow("set short jump");
+        }
+        if (PC.bJumpGravityReset)
+        {
+            Jump(PC.originalGravityScale, PC.jumpDownForce, false);
+        }
+        StateManager.ChangeState(StateManager.AirState);
     }
     public void Jump(float newjumpGravity, float newjumpForce, bool allowGravityReset)
     {
         PC.rb2D.AddForce(Vector2.up * newjumpForce, ForceMode2D.Impulse);
         PC.rb2D.gravityScale = newjumpGravity;
-        PC.bJumpGravityReset = allowGravityReset;                          //should we let the player recast Down force at end Jump
-
-        //PC.CGroundUpdate = PC.StartCoroutine(PC.GroundCheckUpdate());
-    }
-    public void InputBuffer(bool bShortJump)
-    {
-        bIsInputbuffer = true;
-        // do normal jump if buffer timer is > 0 when player is grounded
-        if (PC.jumpBufferTimer > 0 && PC.bIsGrounded && !bShortJump)
-        {
-            //if (bCanDebug) { Log.Green("input buffer Jump"); }
-            StateManager.ChangeState(StateManager.JumpState);
-        }
-        else if (PC.jumpBufferTimer > 0 && PC.bIsGrounded && bShortJump)
-        {
-            //if (bCanDebug) { Log.Yellow("input buffer Short Jump"); }
-            StateManager.ChangeState(StateManager.JumpState);
-            Log.Yellow("Short Jump executed and set back to false");
-        }
-        else if (PC.jumpBufferTimer < 0)
-        {
-            bIsInputbuffer = false;
-            bShortJump = false;
-            //if (bCanDebug) { Log.Yellow("Input buffer time out"); }
-        }
+        PC.bJumpGravityReset = allowGravityReset;
     }
 }

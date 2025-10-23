@@ -11,12 +11,12 @@ public class player_StateBase
     {
         this.StateManager = StateManager;
         this.PC = playerCharacter;
-        this.CH = coroutineHandler;
+        CH = coroutineHandler;
     }
     public virtual void Enter() { }
     public virtual void FixedUpdate() 
     {
-        Log.Yellow(PC.Movedirection.ToString());
+
     }
     public virtual void Exit() { }
 

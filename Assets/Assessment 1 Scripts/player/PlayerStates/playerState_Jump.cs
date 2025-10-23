@@ -7,13 +7,29 @@ public class playerState_Jump : player_StateBase
     public override void Enter()
     {
         base.Enter();
-        Jump(PC.jumpGravity, PC.jumpForce, true);
+        if (PC.bCanJump)
+        {
+            if (PC.bShortJump)
+            {
+                PC.bShortJump = false;
+                Log.Red("Short Jump Activated");
+                Jump(PC.originalGravityScale, PC.jumpForce, true);
+                PC.bCanJump = false;
+            }
+            else
+            {
+                Jump(PC.jumpGravity, PC.jumpForce, true);
+                PC.bCanJump = false;
+            }
+            CH.RunCoroutine(CH.VerticalDirectionCheck(), CH.C_VerticalDirectionCheck);
+        }
+
     }
 
-    public override void Exit() 
+    public override void Exit()
     {
-        base.Exit(); 
-        //reset thing even if they have space down for ever
+        base.Exit();
+
     }
 
     #region --JUMP---
@@ -23,8 +39,9 @@ public class playerState_Jump : player_StateBase
         if (PC.bJumpGravityReset)
         {
             Jump(PC.originalGravityScale, PC.jumpDownForce, false);
+            //PC.originalValuesReset();
+            StateManager.ChangeState(StateManager.AirState);
         }
-        StateManager.ChangeState(StateManager.AirState);
     }
 
     public void Jump(float newjumpGravity, float newjumpForce, bool allowGravityReset)
@@ -32,10 +49,11 @@ public class playerState_Jump : player_StateBase
 
         PC.rb2D.AddForce(Vector2.up * newjumpForce, ForceMode2D.Impulse);
         PC.rb2D.gravityScale = newjumpGravity;
-        PC.bJumpGravityReset = allowGravityReset;                          //should we let the player recast Down force at end Jump
+        PC.bJumpGravityReset = allowGravityReset; 
 
         PC.rb2D.linearDamping = PC.jumpLinearDamping;
-        //PC.CGroundUpdate = PC.StartCoroutine(PC.GroundCheckUpdate());
+
+        CH.RunCoroutine(CH.GroundCheckUpdate(),CH.C_GroundCheck);
     }
     #endregion
 }

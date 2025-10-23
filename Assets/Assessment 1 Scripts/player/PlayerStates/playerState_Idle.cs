@@ -5,11 +5,16 @@ public class playerState_Idle : player_StateBase
     public playerState_Idle(playerCharacter playerCharacter, playerStateManager StateManager,
         PlayerCoroutineHandler coroutineHandler) : base(playerCharacter, StateManager, coroutineHandler) { }
 
-
     public override void Enter()
     {
         if (PC.Movedirection != Vector2.zero)
             StateManager.ChangeState(StateManager.MoveState);
+
+        //CH.RunCoroutine(CH.VerticalDirectionCheck(), CH.C_VerticalDirectionCheck);
+
+        if (PC.Movedirection == Vector2.zero)
+            PC.rb2D.linearVelocity *= PC.ApplyLandingDamping;
+        PC.bCanJump = true;
     }
 
     public override void OnJumpPressed()
