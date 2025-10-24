@@ -10,7 +10,16 @@ public class playerState_JumpApex : player_StateBase
         base.Enter();
 
         CH.RunCoroutine(CH.VerticalDirectionCheck(), CH.C_VerticalDirectionCheck);
+
+        if (PC.bJumpGravityReset)
+        {
+            PC.rb2D.gravityScale = PC.apexGravityScale;
+            PC.rb2D.AddForce(PC.apexSpeedBoost * PC.Movedirection, ForceMode2D.Impulse);
+        }
     }
-    //apex speed
-    // apex grava
+    public override void Exit()
+    {
+        base.Exit();
+        PC.rb2D.gravityScale = PC.jumpGravity;
+    }
 }

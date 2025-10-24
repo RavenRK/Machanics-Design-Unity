@@ -16,6 +16,7 @@ public class playerCharacter : MonoBehaviour
     #region --JUMP Settings---
     [Header("basic Jump Settings")]
     [SerializeField] public float jumpForce = 10f;
+    [SerializeField] public float ShortJumpForce = 10f;
     [SerializeField] public float jumpGravity = 5f;
     [SerializeField] public float jumpDownForce = 5f;
     [SerializeField] public float jumpLinearDamping = 0.5f;
@@ -26,22 +27,26 @@ public class playerCharacter : MonoBehaviour
     [HideInInspector] public bool bShortJump;
     [HideInInspector] public bool bJumpGravityReset;
     [HideInInspector] public bool bCanJump;
-    //Original Value
-    public float originalJumpBufferTimer { get; private set; }
-    public float originalGravityScale { get; private set; }
-    [HideInInspector] public float originalLinearDamping;
 
     [Header("Coyote Time Settings")]
     public float coyoteTimeTimer;
     public float originalCoyoteTimeTimer;
     public bool bCanCoyoteJump = false;
 
+    [Header("Jump Apex Settings")]
+    public float apexGravityScale;
+    public float apexSpeedBoost;
+
+    //Original Value
+    public float originalJumpBufferTimer { get; private set; }
+    public float originalGravityScale { get; private set; }
+    [HideInInspector] public float originalLinearDamping;
+
     #endregion
     #region --Move Settings---
     [Header("Move settings")]
     public float moveSpeed = 2.5f;
-    public float MaxMoveSpeed = 10f;
-    public float MaxFallingSpeed = 25f;
+    public float airMoveSpeed = 5f;
     [HideInInspector] public Vector2 Movedirection;
 
     [Header("Movement other settings")]

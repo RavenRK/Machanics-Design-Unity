@@ -7,19 +7,35 @@ public class playerState_Jump : player_StateBase
     public override void Enter()
     {
         base.Enter();
+        EnterJumpStateBaseJumpFunc();
+    }
+    public override void OnJumpReleased()
+    {
+        base.OnJumpReleased();
+
+    }
+    public override void Exit()
+    {
+        base.Exit();
+        PC.bIsInputbuffer = false;
+    }
+
+    #region --JUMP---
+    public void EnterJumpStateBaseJumpFunc()
+    {
         if (PC.bCanJump)
         {
             if (PC.bShortJump)
             {
                 if (StateManager.BDebug_State_Jump) Log.Red("Short Jump Activated");
-                Jump(PC.originalGravityScale, PC.jumpForce, true);
+                Jump(PC.originalGravityScale, PC.ShortJumpForce, true);
                 PC.bShortJump = false;
                 PC.bCanJump = false;
             }
             else if (PC.bCanCoyoteJump)
             {
                 if (StateManager.BDebug_State_Jump) Log.Red("Input CoyoteTimeJumPower Activated");
-                PC.rb2D.linearVelocity = new Vector2(PC.moveSpeed, 0)* PC.Movedirection;
+                PC.rb2D.linearVelocity = new Vector2(PC.moveSpeed, 0) * PC.Movedirection;
                 Jump(PC.jumpGravity, PC.jumpForce, true);
                 PC.bCanJump = false;
                 PC.bCanCoyoteJump = false;
@@ -28,9 +44,9 @@ public class playerState_Jump : player_StateBase
             {
                 if (StateManager.BDebug_State_Jump) Log.Red("Jump Activated");
                 Jump(PC.jumpGravity, PC.jumpForce, true);
-                PC.bCanJump = false; 
+                PC.bCanJump = false;
             }
-            CH.RunCoroutine(CH.JumpApexUpdate(),CH.C_CoyoteTimeCheck);
+            CH.RunCoroutine(CH.JumpApexUpdate(), CH.C_JumpApexCheck);
         }
         else
         {
@@ -38,30 +54,5 @@ public class playerState_Jump : player_StateBase
         }
     }
 
-    public override void Exit()
-    {
-        base.Exit();
-        PC.bIsInputbuffer = false;
-    }
-
-    public override void OnJumpReleased()
-    {
-        base.OnJumpReleased();
-        if (PC.bJumpGravityReset)
-            Jump(PC.originalGravityScale, PC.jumpDownForce, false);
-
-    }
-
-    #region --JUMP---
-    public void Jump(float newjumpGravity, float newjumpForce, bool allowGravityReset)
-    {
-
-        PC.rb2D.AddForce(Vector2.up * newjumpForce, ForceMode2D.Impulse);
-        PC.rb2D.gravityScale = newjumpGravity;
-        PC.bJumpGravityReset = allowGravityReset; 
-
-        PC.rb2D.linearDamping = PC.jumpLinearDamping;
-        CH.RunCoroutine(CH.GroundCheckUpdate(),CH.C_GroundCheck);
-    }
     #endregion
 }

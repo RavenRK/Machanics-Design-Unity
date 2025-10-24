@@ -33,7 +33,7 @@ public class PlayerCoroutineHandler : MonoBehaviour
     }
     public IEnumerator JumpApexUpdate()
     {
-        while (PC.rb2D.linearVelocity.y !< 1)
+        while (PC.rb2D.linearVelocity.y > 1)
         {
             yield return null;
         }
@@ -41,10 +41,12 @@ public class PlayerCoroutineHandler : MonoBehaviour
         C_JumpApexCheck = null;
     }
     // check of we are falling
+    // Input buffer
+    // timer for when to move
     #region VerticalDirectionCheck
     public IEnumerator VerticalDirectionCheck()
     {
-        while (PC.rb2D.linearVelocity.y > -1)
+        while (PC.rb2D.linearVelocity.y > -0.5)
         {
             yield return null;
         }
@@ -53,7 +55,6 @@ public class PlayerCoroutineHandler : MonoBehaviour
         C_VerticalDirectionCheck = null;
     }
     #endregion
-    //Run input buffer
     #region Input Buffer Update
     public IEnumerator InputBufferUpdate()
     {
@@ -77,7 +78,6 @@ public class PlayerCoroutineHandler : MonoBehaviour
         C_InputBufferCheck = null;
     }
     #endregion
-    //timer for Coyote Time
     #region CoyoteTimeUpdate
     public IEnumerator CoyoteTimeUpdate()
     {
@@ -94,7 +94,6 @@ public class PlayerCoroutineHandler : MonoBehaviour
         C_CoyoteTimeCheck = null;
     }
     #endregion
-    //timer for when to move
     #region MoveUpdate
     public IEnumerator MoveUpdate()
     {
@@ -106,6 +105,8 @@ public class PlayerCoroutineHandler : MonoBehaviour
         StateManager.ChangeState(StateManager.IdleState);
     }
     #endregion
+
+    // << start & stop base funcs
     #region Start / Stop Coroutines Func
     public Coroutine RunCoroutine(IEnumerator IEnum, Coroutine C_coroutine)
     {
