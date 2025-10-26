@@ -31,7 +31,7 @@ public class playerCharacter : MonoBehaviour
     [Header("Coyote Time Settings")]
     public float coyoteTimeTimer;
     public float originalCoyoteTimeTimer;
-    public bool bCanCoyoteJump = false;
+    [HideInInspector] public bool bCanCoyoteJump = false;
 
     [Header("Jump Apex Settings")]
     public float apexGravityScale;
@@ -52,6 +52,7 @@ public class playerCharacter : MonoBehaviour
     [Header("Movement other settings")]
     public float ApplyLandingDamping = 0.8f;
     [HideInInspector] public bool BCanOriginalValuesReset;
+    public CapsuleCollider2D playerCollider;
     #endregion
 
     [Header("checks")]
@@ -75,6 +76,8 @@ public class playerCharacter : MonoBehaviour
         BCanOriginalValuesReset = false;
         bCanJump = true;
         //
+
+        playerCollider.size = new Vector2(0.5f, 1f);
     }
     private void FixedUpdate()
     {

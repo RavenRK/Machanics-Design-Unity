@@ -16,7 +16,6 @@ public class playerState_Idle : player_StateBase
             PC.rb2D.linearVelocity *= PC.ApplyLandingDamping;// >> fix sliding
 
         CH.RunCoroutine(CH.VerticalDirectionCheck(), CH.C_VerticalDirectionCheck);
-
     }
     public override void OnJumpPressed()
     {

@@ -25,11 +25,7 @@ public class player_StateBase
     {
         PC.Movedirection = direction;
         if (!PC.bIsGrounded)
-        {
-            Log.Green("Air Move Applied");
             PC.rb2D.AddForce(new Vector2(PC.Movedirection.x * PC.airMoveSpeed, 0f), ForceMode2D.Force);
-
-        }
 
     }
     public virtual void OnJumpPressed() { }

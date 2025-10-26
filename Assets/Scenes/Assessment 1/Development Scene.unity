@@ -2797,7 +2797,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3600401525870630746, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -31.17
+      value: -29.006
       objectReference: {fileID: 0}
     - target: {fileID: 3600401525870630746, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2837,11 +2837,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4855070989235704345, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
       propertyPath: m_Size.x
-      value: 0.99
+      value: 0.97
       objectReference: {fileID: 0}
     - target: {fileID: 4855070989235704345, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
       propertyPath: m_Size.y
-      value: 0.98
+      value: 0.97
       objectReference: {fileID: 0}
     - target: {fileID: 5406072704542687043, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3313,6 +3313,7 @@ MonoBehaviour:
   Movedirection: {x: 0, y: 0}
   ApplyLandingDamping: 0.2
   BCanOriginalValuesReset: 0
+  playerCollider: {fileID: 0}
   raycastPosition: {fileID: 2067620923}
   gGroundLayer:
     serializedVersion: 2

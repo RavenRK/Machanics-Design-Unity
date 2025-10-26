@@ -26,7 +26,7 @@ public class PlayerCoroutineHandler : MonoBehaviour
         {
             yield return new WaitForEndOfFrame();
         }
-        Log.Green("Grounded Detected");
+        if (bCanDebug) Log.Green("Grounded Detected");
         PC.originalValuesReset();
         StateManager.ChangeState(StateManager.IdleState);
         C_GroundCheck = null;
@@ -81,7 +81,7 @@ public class PlayerCoroutineHandler : MonoBehaviour
     #region CoyoteTimeUpdate
     public IEnumerator CoyoteTimeUpdate()
     {
-        Log.Red("coyote timer start");
+        if (bCanDebug) Log.Red("coyote timer start");
         PC.coyoteTimeTimer = PC.originalCoyoteTimeTimer;
         PC.bCanCoyoteJump = true;
         while (PC.coyoteTimeTimer > 0)
