@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class HealthComponent : MonoBehaviour
+public class HealthComponent : MonoBehaviour, IDamageable
 {
     [SerializeField] private int MaxHealth;
     private int CurrentHealth;
@@ -9,9 +9,9 @@ public class HealthComponent : MonoBehaviour
     private void Awake()
     {   CurrentHealth = MaxHealth;  }
 
-    virtual public void HealthChange(int HealthChangeAmount)
+    public void TakeDamage(int damage)
     {
-        CurrentHealth += HealthChangeAmount;
+        CurrentHealth += damage;
 
         if (CurrentHealth <= 0 && !isDead)
         {

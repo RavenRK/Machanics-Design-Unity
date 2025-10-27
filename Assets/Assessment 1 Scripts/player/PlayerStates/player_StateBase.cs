@@ -7,12 +7,15 @@ public class player_StateBase
     protected playerStateManager StateManager;
     protected PlayerCoroutineHandler CH;
     protected playerCharacter PC;
+    protected PlayerSoundManager SoundM;
 
-    protected player_StateBase(playerCharacter playerCharacter, playerStateManager StateManager, PlayerCoroutineHandler coroutineHandler)
+    protected player_StateBase(playerCharacter playerCharacter, playerStateManager StateManager, PlayerCoroutineHandler coroutineHandler
+        , PlayerSoundManager SoundManager)
     {
         this.StateManager = StateManager;
         this.PC = playerCharacter;
         CH = coroutineHandler;
+        SoundM = SoundManager;
     }
     public virtual void Enter() { }
     public virtual void FixedUpdate() { }

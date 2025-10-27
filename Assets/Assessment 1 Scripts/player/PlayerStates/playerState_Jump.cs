@@ -3,11 +3,12 @@ using UnityEngine;
 public class playerState_Jump : player_StateBase
 {
     public playerState_Jump(playerCharacter playerCharacter, playerStateManager StateManager,
-        PlayerCoroutineHandler coroutineHandler) : base(playerCharacter, StateManager, coroutineHandler) { }
+        PlayerCoroutineHandler coroutineHandler, PlayerSoundManager SoundManager) : base(playerCharacter, StateManager, coroutineHandler, SoundManager) { }
     public override void Enter()
     {
         base.Enter();
         EnterJumpStateBaseJumpFunc();
+        SoundM.PlayJumpSound();
     }
     public override void OnJumpReleased()
     {

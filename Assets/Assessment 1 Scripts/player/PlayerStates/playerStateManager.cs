@@ -16,6 +16,7 @@ public class playerStateManager : MonoBehaviour
     public playerCharacter playerCharacter { get; private set; }
     public PlayerInputHandler inputHandler  { get; private set; }
     public PlayerCoroutineHandler coroutineHandler { get; private set; }
+    public PlayerSoundManager soundManager { get; private set; }
 
     #region Define States
     public playerState_Idle IdleState { get; private set; }
@@ -34,15 +35,16 @@ public class playerStateManager : MonoBehaviour
         playerCharacter = GetComponent<playerCharacter>();
         inputHandler = GetComponent<PlayerInputHandler>();
         coroutineHandler = GetComponent<PlayerCoroutineHandler>();
+        soundManager = GetComponentInChildren<PlayerSoundManager>();
     }
     
     private void Start()
     {
-        IdleState = new playerState_Idle(playerCharacter, this, coroutineHandler);
-        AirState = new playerState_Air(playerCharacter, this, coroutineHandler);
-        MoveState = new playerState_Move(playerCharacter, this, coroutineHandler);
-        JumpState = new playerState_Jump(playerCharacter, this, coroutineHandler);
-        JumpApex = new playerState_JumpApex(playerCharacter, this, coroutineHandler);
+        IdleState = new playerState_Idle(playerCharacter, this, coroutineHandler, soundManager);
+        AirState = new playerState_Air(playerCharacter, this, coroutineHandler, soundManager);
+        MoveState = new playerState_Move(playerCharacter, this, coroutineHandler, soundManager);
+        JumpState = new playerState_Jump(playerCharacter, this, coroutineHandler, soundManager);
+        JumpApex = new playerState_JumpApex(playerCharacter, this, coroutineHandler, soundManager);
 
         Initialize(IdleState);
     }
@@ -87,7 +89,7 @@ public class playerStateManager : MonoBehaviour
             if (BDebug_StateChange) Log.Green(CurrentState.ToString() + " > " + newState.ToString());
             PreviousState = CurrentState; //set previous state to current state
             CurrentState.Exit();        //call exit on the current state
-            CurrentState = newState;   //set the current state to the new state
+            CurrentState = newState;   //set the current state to the new state 
             CurrentState.Enter();       //call enter on the new state
         }
         else

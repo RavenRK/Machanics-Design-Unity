@@ -3,7 +3,7 @@ using UnityEngine;
 public class playerState_Air : player_StateBase
 {
     public playerState_Air(playerCharacter playerCharacter, playerStateManager StateManager,
-        PlayerCoroutineHandler coroutineHandler) : base(playerCharacter, StateManager, coroutineHandler) { }
+        PlayerCoroutineHandler coroutineHandler, PlayerSoundManager SoundManager) : base(playerCharacter, StateManager, coroutineHandler, SoundManager) { }
 
     public override void Enter()
     {
@@ -38,11 +38,10 @@ public class playerState_Air : player_StateBase
             if (StateManager.BDebug_State_Air) Log.Yellow("set short jump");
         }
     }
-    #region Empty
     public override void Exit()
     {
         base.Exit();
         PC.rb2D.linearDamping = PC.originalLinearDamping;
+        SoundM.PlayLandSound();
     }
-    #endregion
 }
