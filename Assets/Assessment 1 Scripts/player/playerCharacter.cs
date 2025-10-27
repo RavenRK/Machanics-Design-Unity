@@ -23,14 +23,15 @@ public class playerCharacter : MonoBehaviour
 
     [Header("JumpBuffer Settings")]
     [SerializeField] public float jumpBufferTimer = 0.2f;
+
     [HideInInspector] public bool bIsInputbuffer;
     [HideInInspector] public bool bShortJump;
     [HideInInspector] public bool bJumpGravityReset;
     [HideInInspector] public bool bCanJump;
 
     [Header("Coyote Time Settings")]
-    public float coyoteTimeTimer;
     public float originalCoyoteTimeTimer;
+    [HideInInspector] public float coyoteTimeTimer;
     [HideInInspector] public bool bCanCoyoteJump = false;
 
     [Header("Jump Apex Settings")]
@@ -77,7 +78,7 @@ public class playerCharacter : MonoBehaviour
         bCanJump = true;
         //
 
-        playerCollider.size = new Vector2(0.5f, 1f);
+        //playerCollider.size = new Vector2(0.5f, 1f);
     }
     private void FixedUpdate()
     {
