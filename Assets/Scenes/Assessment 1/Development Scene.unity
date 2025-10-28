@@ -2362,7 +2362,7 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
-  m_UseDelaunayMesh: 1
+  m_UseDelaunayMesh: 0
 --- !u!20 &137318336 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 8622988680036917310, guid: 3357c003e0755d64c8b53ac23d3acd15, type: 3}
@@ -3002,7 +3002,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 253bbbfa291ddd24ab8d9c370e3cf082, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BDebug_CurrentState: 1
+  BDebug_CurrentState: 0
   BDebug_StateChange: 0
   BDebug_State_Idle: 0
   BDebug_State_Move: 0
@@ -3084,10 +3084,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 743ea9653392262489dd0bac4f4ddc59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stateM: {fileID: 0}
-  JumpSounds: {fileID: 0}
-  MoveSounds: {fileID: 0}
-  LandSounds: {fileID: 0}
+  stateM: {fileID: 1513426702}
+  AudioSource: {fileID: 1564557715}
+  JumpSounds: {fileID: 8300000, guid: b151c920498619d40828021e28df67a8, type: 3}
+  MoveSounds: {fileID: 8300000, guid: 6ff53ff6dbbd55f4a97d031c27a803e5, type: 3}
+  LandSounds: {fileID: 8300000, guid: 79c2756e5df9fe9488cf703345edfb6e, type: 3}
 --- !u!82 &1564557715
 AudioSource:
   m_ObjectHideFlags: 0
