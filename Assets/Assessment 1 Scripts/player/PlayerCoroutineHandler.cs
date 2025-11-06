@@ -95,7 +95,7 @@ public class PlayerCoroutineHandler : MonoBehaviour
         {
             yield return null;
             PC.rb2D.linearVelocity = new Vector2(PC.Movedirection.x * PC.moveSpeed, PC.rb2D.linearVelocity.y);
-            RunCoroutine(MoveSoundTimer(), C_MoveSoundCheck);
+            //RunCoroutine(MoveSoundTimer(), C_MoveSoundCheck);
         }
         StateManager.ChangeState(StateManager.IdleState);
     }
