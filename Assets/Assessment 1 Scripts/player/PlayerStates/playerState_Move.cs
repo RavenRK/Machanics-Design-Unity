@@ -29,7 +29,6 @@ public class playerState_Move : player_StateBase
     public override void FixedUpdate()
     {
         base.FixedUpdate();
-
     }
 
     #endregion

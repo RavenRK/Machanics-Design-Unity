@@ -28,10 +28,14 @@ public class PlayerSoundManager : MonoBehaviour
     public void PlayMoveSound()
     {
         if (AudioSource.clip != MoveSounds)
-        AudioSource.clip = MoveSounds;
-
-        AudioSource.Play();
-        Log.Red("Play Move Sound");
+        {
+            AudioSource.clip = MoveSounds;
+            AudioSource.Play();
+        }
+        else
+        {
+            Log.Red("dont play Sound");
+        }
     }
     public void PlayLandSound()
     {

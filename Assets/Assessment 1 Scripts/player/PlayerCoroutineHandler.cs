@@ -103,7 +103,7 @@ public class PlayerCoroutineHandler : MonoBehaviour
     {
         while (PC.Movedirection != Vector2.zero)
         {
-            yield return new WaitForSeconds(.25f);
+            yield return new WaitForSeconds(.1f);
             SoundManager.PlayMoveSound();
         }
         C_MoveSoundCheck = null;
