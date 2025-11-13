@@ -6,21 +6,23 @@ public class PlayerCoroutineHandler : MonoBehaviour
     public bool bCanDebug = false;
     public playerCharacter PC { get; private set; }
     public playerStateManager StateManager { get; private set; }
-    public PlayerSoundManager SoundManager { get; private set; }
 
-    public Coroutine C_GroundCheck { get; private set; } // update
+    public PlayerFeedBackManager FeedBackM { get; private set; } // sound
+
+    public Coroutine C_GroundCheck { get; private set; }
     public Coroutine C_VerticalDirectionCheck { get; private set; }
     public Coroutine C_InputBufferCheck { get; private set; }
     public Coroutine C_CoyoteTimeCheck { get; private set; }
     public Coroutine C_MoveCheck { get; private set; }
     public Coroutine C_JumpApexCheck { get; private set; }
     public Coroutine C_MoveSoundCheck { get; private set; }
+    public Coroutine C_AirMoveCheck { get; private set; }
 
     public void Awake()
     {
         PC = GetComponent<playerCharacter>();
         StateManager = GetComponent<playerStateManager>();
-        SoundManager = GetComponentInChildren<PlayerSoundManager>();
+        FeedBackM = GetComponentInChildren<PlayerFeedBackManager>();
     }
     public IEnumerator GroundCheckUpdate()
     {
@@ -30,8 +32,9 @@ public class PlayerCoroutineHandler : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
         if (bCanDebug) Log.Green("Grounded Detected");
+        FeedBackM.PlayLandPlayerFeedBack();
+        Log.Red("Land Feedback Played");
         PC.originalValuesReset();
-        SoundManager.PlayLandSound();
         StateManager.ChangeState(StateManager.IdleState);
         C_GroundCheck = null;
     }
@@ -91,22 +94,25 @@ public class PlayerCoroutineHandler : MonoBehaviour
     }
     public IEnumerator MoveUpdate()
     {
+        FeedBackM.PlayMovePlayerFeedBack();
         while (PC.Movedirection != Vector2.zero)
         {
             yield return null;
             PC.rb2D.linearVelocity = new Vector2(PC.Movedirection.x * PC.moveSpeed, PC.rb2D.linearVelocity.y);
-            //RunCoroutine(MoveSoundTimer(), C_MoveSoundCheck);
+
         }
+        FeedBackM.StopMovePlayerFeedBack();
         StateManager.ChangeState(StateManager.IdleState);
     }
-    public IEnumerator MoveSoundTimer()
+    public IEnumerator AirMoveUpdate()
     {
         while (PC.Movedirection != Vector2.zero)
         {
-            yield return new WaitForSeconds(.1f);
-            SoundManager.PlayMoveSound();
+            yield return null;
+
+            if (!PC.bIsGrounded)
+                PC.rb2D.AddForce(new Vector2(PC.Movedirection.x * PC.airMoveSpeed, 0f), ForceMode2D.Force);
         }
-        C_MoveSoundCheck = null;
     }
     // << start & stop base funcs
         #region Start / Stop Coroutines Func

@@ -3,13 +3,15 @@ using UnityEngine;
 public class playerState_Air : player_StateBase
 {
     public playerState_Air(playerCharacter playerCharacter, playerStateManager StateManager,
-        PlayerCoroutineHandler coroutineHandler, PlayerSoundManager SoundManager) : base(playerCharacter, StateManager, coroutineHandler, SoundManager) { }
+        PlayerCoroutineHandler coroutineHandler, PlayerFeedBackManager SoundManager) : base(playerCharacter, StateManager, coroutineHandler, SoundManager) { }
 
     public override void Enter()
     {
         if (!PC.bIsInputbuffer) // ground check
             CH.RunCoroutine(CH.GroundCheckUpdate(), CH.C_GroundCheck);
+
         PC.bIsInputbuffer = false;
+
         if (StateManager.PreviousState == StateManager.MoveState) // Start Coyote time
             CH.RunCoroutine(CH.CoyoteTimeUpdate(), CH.C_CoyoteTimeCheck);
 
@@ -42,6 +44,5 @@ public class playerState_Air : player_StateBase
     {
         base.Exit();
         PC.rb2D.linearDamping = PC.originalLinearDamping;
-        SoundM.PlayLandSound();
     }
 }

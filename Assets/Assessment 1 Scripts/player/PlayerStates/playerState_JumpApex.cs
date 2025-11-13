@@ -3,7 +3,7 @@ using UnityEngine;
 public class playerState_JumpApex : player_StateBase
 {
     public playerState_JumpApex(playerCharacter playerCharacter, playerStateManager StateManager,
-        PlayerCoroutineHandler coroutineHandler, PlayerSoundManager SoundManager) : base(playerCharacter, StateManager, coroutineHandler, SoundManager) { }
+        PlayerCoroutineHandler coroutineHandler, PlayerFeedBackManager SoundManager) : base(playerCharacter, StateManager, coroutineHandler, SoundManager) { }
 
     public override void Enter()
     {

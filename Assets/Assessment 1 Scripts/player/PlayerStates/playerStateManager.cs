@@ -11,14 +11,16 @@ public class playerStateManager : MonoBehaviour
     public bool BDebug_State_Jump = false;
     public bool BDebug_State_Air = false;
 
-    public player_StateBase CurrentState { get; private set; }
-    public player_StateBase PreviousState { get; private set; }
-    public playerCharacter playerCharacter { get; private set; }
-    public PlayerInputHandler inputHandler  { get; private set; }
-    public PlayerCoroutineHandler coroutineHandler { get; private set; }
-    public PlayerSoundManager soundManager { get; private set; }
+
+    public playerCharacter playerCharacter { get; private set; } // Player 
+    public PlayerInputHandler inputHandler  { get; private set; } // Input 
+    public PlayerCoroutineHandler coroutineHandler { get; private set; } // Coroutine 
+    public PlayerFeedBackManager FeedbackManager { get; private set; } // Sound 
 
     #region Define States
+    public player_StateBase CurrentState { get; private set; }
+    public player_StateBase PreviousState { get; private set; }
+
     public playerState_Idle IdleState { get; private set; }
     public playerState_Air AirState { get; private set; }
     public playerState_Move MoveState { get; private set; }
@@ -30,23 +32,26 @@ public class playerStateManager : MonoBehaviour
     private System.Action jumpPressedCallback;
     private System.Action jumpReleasedCallback;
 
+    private System.Action InteractCallback;
+
     private void Awake()
     {
         playerCharacter = GetComponent<playerCharacter>();
         inputHandler = GetComponent<PlayerInputHandler>();
         coroutineHandler = GetComponent<PlayerCoroutineHandler>();
-        soundManager = GetComponentInChildren<PlayerSoundManager>();
+        FeedbackManager = GetComponentInChildren<PlayerFeedBackManager>();
     }
     
     private void Start()
     {
-        IdleState = new playerState_Idle(playerCharacter, this, coroutineHandler, soundManager);
-        AirState = new playerState_Air(playerCharacter, this, coroutineHandler, soundManager);
-        MoveState = new playerState_Move(playerCharacter, this, coroutineHandler, soundManager);
-        JumpState = new playerState_Jump(playerCharacter, this, coroutineHandler, soundManager);
-        JumpApex = new playerState_JumpApex(playerCharacter, this, coroutineHandler, soundManager);
+        IdleState = new playerState_Idle(playerCharacter, this, coroutineHandler, FeedbackManager);
+        AirState = new playerState_Air(playerCharacter, this, coroutineHandler, FeedbackManager);
+        MoveState = new playerState_Move(playerCharacter, this, coroutineHandler, FeedbackManager);
+        JumpState = new playerState_Jump(playerCharacter, this, coroutineHandler, FeedbackManager);
+        JumpApex = new playerState_JumpApex(playerCharacter, this, coroutineHandler, FeedbackManager);
 
         Initialize(IdleState);
+
     }
     private void Update()
     {
@@ -63,17 +68,19 @@ public class playerStateManager : MonoBehaviour
         inputHandler.OnMove += direction => CurrentState?.OnMove(direction);
         inputHandler.OnJumpPressed += () => CurrentState?.OnJumpPressed();
         inputHandler.OnJumpReleased += () => CurrentState?.OnJumpReleased();
-
+        inputHandler.OnInteract += () => CurrentState?.OnInteract();
 
         inputHandler.OnMove += moveCallback;
         inputHandler.OnJumpPressed += jumpPressedCallback;
         inputHandler.OnJumpReleased += jumpReleasedCallback;
+        inputHandler.OnInteract += InteractCallback;
     }
     private void OnDisable()
     {
         inputHandler.OnMove -= direction => CurrentState?.OnMove(direction);
         inputHandler.OnJumpPressed -= () => CurrentState?.OnJumpPressed();
         inputHandler.OnJumpReleased -= () => CurrentState?.OnJumpReleased();
+        inputHandler.OnInteract -= () => CurrentState?.OnInteract();
     }
     #endregion
     #region initialize and ChangState

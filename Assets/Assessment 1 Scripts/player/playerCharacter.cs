@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using UnityEngine;
 
 
@@ -21,22 +22,18 @@ public class playerCharacter : MonoBehaviour
     [SerializeField] public float jumpDownForce = 5f;
     [SerializeField] public float jumpLinearDamping = 0.5f;
 
-    [Header("JumpBuffer Settings")]
+    [Header("Jump Settings")]
     [SerializeField] public float jumpBufferTimer = 0.2f;
+    public float originalCoyoteTimeTimer;
+    public float apexGravityScale;
+    public float apexSpeedBoost;
 
     [HideInInspector] public bool bIsInputbuffer;
     [HideInInspector] public bool bShortJump;
     [HideInInspector] public bool bJumpGravityReset;
     [HideInInspector] public bool bCanJump;
-
-    [Header("Coyote Time Settings")]
-    public float originalCoyoteTimeTimer;
     [HideInInspector] public float coyoteTimeTimer;
     [HideInInspector] public bool bCanCoyoteJump = false;
-
-    [Header("Jump Apex Settings")]
-    public float apexGravityScale;
-    public float apexSpeedBoost;
 
     //Original Value
     public float originalJumpBufferTimer { get; private set; }
@@ -61,7 +58,13 @@ public class playerCharacter : MonoBehaviour
     public LayerMask gGroundLayer;
     [HideInInspector] public bool bIsGrounded;
 
+    [HideInInspector] public Collider2D InteractionCollider;
+    [SerializeField] public LayerMask interactableLayer;
+    //public GameObject interactableObject;
+
+    private HealthComponent healthComponent;
     public Rigidbody2D rb2D {get; private set; }
+    private PlayerFeedBackManager feedbackM;
 
     private void Awake()
     {
@@ -71,18 +74,40 @@ public class playerCharacter : MonoBehaviour
         originalGravityScale = rb2D.gravityScale;
         originalLinearDamping = rb2D.linearDamping;
         originalJumpBufferTimer = jumpBufferTimer;
+        BCanOriginalValuesReset = false;
+
+        //Set defaults
         bIsInputbuffer = false;
         bShortJump = false;
         bJumpGravityReset = false;
-        BCanOriginalValuesReset = false;
         bCanJump = true;
-        //
 
-        //playerCollider.size = new Vector2(0.5f, 1f);
+        InteractionCollider = GetComponentInChildren<CircleCollider2D>();
+        healthComponent = GetComponent<HealthComponent>();
+
+    }
+    private void Start()
+    {
+        healthComponent.OnDead += OnPlayerDead;
+        healthComponent.OnDamageTaken += OnplayerDamaged;
+    }
+    private void OnDestroy()
+    {
+        healthComponent.OnDead -= OnPlayerDead;
+        healthComponent.OnDamageTaken -= OnplayerDamaged;
+    }
+    public void OnPlayerDead(MonoBehaviour causer)
+    {
+        Log.Red("Player Dead");
+    }
+    private void OnplayerDamaged(float current, float max, float damage)
+    {
+        Log.Yellow($"Player Damaged: -{damage} HP ({current}/{max})");
+        feedbackM.PlayDMGPlayerFeedBack();
     }
     private void FixedUpdate()
     {
-        bIsGrounded = Physics2D.Raycast(raycastPosition.position, Vector2.down, 0.05f, gGroundLayer);     //ray cast for check grounded
+        bIsGrounded = Physics2D.Raycast(raycastPosition.position, Vector2.down, 0.05f, gGroundLayer);     //ground check
     }
     public void originalValuesReset()
     {

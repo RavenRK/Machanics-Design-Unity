@@ -3,17 +3,16 @@ using UnityEngine;
 public class playerState_Jump : player_StateBase
 {
     public playerState_Jump(playerCharacter playerCharacter, playerStateManager StateManager,
-        PlayerCoroutineHandler coroutineHandler, PlayerSoundManager SoundManager) : base(playerCharacter, StateManager, coroutineHandler, SoundManager) { }
+        PlayerCoroutineHandler coroutineHandler, PlayerFeedBackManager SoundManager) : base(playerCharacter, StateManager, coroutineHandler, SoundManager) { }
     public override void Enter()
     {
         base.Enter();
         EnterJumpStateBaseJumpFunc();
-        SoundM.PlayJumpSound();
+
     }
     public override void OnJumpReleased()
     {
         base.OnJumpReleased();
-
     }
     public override void Exit()
     {
@@ -26,6 +25,7 @@ public class playerState_Jump : player_StateBase
     {
         if (PC.bCanJump)
         {
+            FeedbackM.PlayJumpPlayerFeedBack();
             if (PC.bShortJump)
             {
                 if (StateManager.BDebug_State_Jump) Log.Red("Short Jump Activated");

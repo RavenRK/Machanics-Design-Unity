@@ -1,34 +1,25 @@
+using System;
 using UnityEngine;
 
-public class HealthComponent : MonoBehaviour, IDamageable
+public class HealthComponent : MonoBehaviour
 {
+    public event Action<float, float, float> OnDamageTaken; // current health, max health, damage amount
+    public event Action<MonoBehaviour> OnDead;
+
     [SerializeField] private int MaxHealth;
     private int CurrentHealth;
-    private bool isDead = false;
 
     private void Awake()
     {   CurrentHealth = MaxHealth;  }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, MonoBehaviour causer)
     {
-        CurrentHealth += damage;
+        float change = Math.Min(CurrentHealth, damage);
 
-        if (CurrentHealth <= 0 && !isDead)
-        {
-            isDead = true;
-            OnDead();
-        }
-    }
-    virtual public void OnDead()
-    {
-        if (isDead)
-        {
-            Debug.Log("Character is Dead");
-            // Add additional death handling logic here
-        }
-    }
-    void Update()
-    {
-        
+        CurrentHealth -= damage;
+        OnDamageTaken?.Invoke(CurrentHealth, MaxHealth, change);
+
+        if (CurrentHealth <= 0)
+            OnDead?.Invoke(causer);
     }
 }

@@ -7,15 +7,15 @@ public class player_StateBase
     protected playerStateManager StateManager;
     protected PlayerCoroutineHandler CH;
     protected playerCharacter PC;
-    protected PlayerSoundManager SoundM;
+    protected PlayerFeedBackManager FeedbackM;
 
-    protected player_StateBase(playerCharacter playerCharacter, playerStateManager StateManager, PlayerCoroutineHandler coroutineHandler
-        , PlayerSoundManager SoundManager)
+    protected player_StateBase(playerCharacter playerCharacter, playerStateManager StateManager,
+        PlayerCoroutineHandler coroutineHandler, PlayerFeedBackManager FeedbackManager)
     {
         this.StateManager = StateManager;
         this.PC = playerCharacter;
         CH = coroutineHandler;
-        SoundM = SoundManager;
+        FeedbackM = FeedbackManager;
     }
     public virtual void Enter() { }
     public virtual void FixedUpdate() { }
@@ -27,17 +27,32 @@ public class player_StateBase
     public virtual void OnMove(Vector2 direction) 
     {
         PC.Movedirection = direction;
-        if (!PC.bIsGrounded)
-            PC.rb2D.AddForce(new Vector2(PC.Movedirection.x * PC.airMoveSpeed, 0f), ForceMode2D.Force);
+        CH.RunCoroutine(CH.AirMoveUpdate(), CH.C_AirMoveCheck);
+    }
+    public virtual void OnJumpPressed() 
+    {
 
     }
-    public virtual void OnJumpPressed() { }
     public virtual void OnJumpReleased()
     {
-        //if (PC.bShortJump)
-        //    Jump(PC.originalGravityScale, PC.ShortJumpForce, false);
-        if (PC.bJumpGravityReset)
+        if (PC.bJumpGravityReset && !PC.bIsGrounded)
             Jump(PC.originalGravityScale, PC.jumpDownForce, false);
+    }
+
+    public virtual void OnInteract() 
+    {
+        //Log.Red("Interact Pressed");
+        PC.InteractionCollider = Physics2D.OverlapCircle(PC.transform.position, 1, PC.interactableLayer);
+            
+        if (PC.InteractionCollider == null)
+        {
+            //Log.Red("No Interactable Object in Range");
+            return;
+        }
+        if (PC.InteractionCollider != null && PC.InteractionCollider.transform.TryGetComponent<IInteractable>(out var interactableObject))
+        {
+            interactableObject.Interact();
+        }
     }
 
     public void Jump(float newjumpGravity, float newjumpForce, bool allowGravityReset)
