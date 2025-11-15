@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
     public IEnumerator DeadUpdate()
     {
         Time.timeScale = 0.01f;
-        yield return new WaitForSecondsRealtime(1.5f);
+        yield return new WaitForSecondsRealtime(1.25f);
         Time.timeScale = 1;
         PlayerPrefab.transform.position = CurrentCheckPointLocation;
         StopAllCoroutines();

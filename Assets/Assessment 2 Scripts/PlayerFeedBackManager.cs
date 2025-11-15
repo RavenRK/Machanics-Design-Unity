@@ -24,13 +24,20 @@ public class PlayerFeedBackManager : MonoBehaviour
     //get called in the health component OnDamageTaken event
     public void PlayDMGPlayerFeedBack()
     {
-        if (AudioSource.clip != DMGSounds)
-            AudioSource.clip = DMGSounds;
+        AudioSource.loop = false;
 
+        if (AudioSource.clip != DMGSounds)
+        {
+            AudioSource.clip = DMGSounds;
+            Log.Red("DMG VFX");
+        }
+
+        AudioSource.Play();
         if (LandVFX != null)
         {
             Vector3 PlayLocation = this.transform.position;
             Instantiate(DMGVFX, PlayLocation, Quaternion.identity);
+            Log.Red("VFX");
         }
         else { Log.Red("No DMG VFX assigned"); }
     }
@@ -62,7 +69,8 @@ public class PlayerFeedBackManager : MonoBehaviour
         AudioSource.Stop();
         if (BDebug_PlaySound) Log.Red("Stop move Sound");
     }
-    // gets called in the player State machine OnEnter iedle if the player was previously in air state
+    // gets called in the player State machine OnEnter
+    // iedle if the player was previously in air state
     public void PlayLandPlayerFeedBack()
     {
         AudioSource.loop = false;

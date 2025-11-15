@@ -102,7 +102,8 @@ public class playerCharacter : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        bIsGrounded = Physics2D.Raycast(raycastPosition.position, Vector2.down, 0.05f, gGroundLayer);     //ground check
+        bIsGrounded = Physics2D.Raycast(raycastPosition.position, 
+            Vector2.down, 0.05f, gGroundLayer);     //ground check
     }
     public void originalValuesReset()
     {

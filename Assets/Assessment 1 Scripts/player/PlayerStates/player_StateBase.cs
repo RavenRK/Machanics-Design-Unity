@@ -19,20 +19,13 @@ public class player_StateBase
     }
     public virtual void Enter() { }
     public virtual void FixedUpdate() { }
-    public virtual void Exit() 
-    {
-        CH.StopAllCoroutines();
-    }
-
+    public virtual void Exit() { CH.StopAllCoroutines(); }
     public virtual void OnMove(Vector2 direction) 
     {
         PC.Movedirection = direction;
         CH.RunCoroutine(CH.AirMoveUpdate(), CH.C_AirMoveCheck);
     }
-    public virtual void OnJumpPressed() 
-    {
-
-    }
+    public virtual void OnJumpPressed() { }
     public virtual void OnJumpReleased()
     {
         if (PC.bJumpGravityReset && !PC.bIsGrounded)
