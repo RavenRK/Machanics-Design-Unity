@@ -100,7 +100,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 7
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -200,7 +200,7 @@ Transform:
   m_GameObject: {fileID: 5368893012325453326}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.6833608, y: 5.363423, z: 0}
+  m_LocalPosition: {x: -4.37, y: 0.66, z: -0.36}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -574,7 +574,7 @@ Transform:
   m_GameObject: {fileID: 5697408141475539339}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.5, z: 0}
+  m_LocalPosition: {x: 0, y: -0.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -695,6 +695,8 @@ MonoBehaviour:
   JumpSounds: {fileID: 8300000, guid: ae852656b16106c4ab3e5f16ebe5ee84, type: 3}
   MoveSounds: {fileID: 8300000, guid: cb99a1f0b69948a458aefae09d143799, type: 3}
   LandSounds: {fileID: 8300000, guid: 5f58b1767331b0c4d820b4c72bf36e93, type: 3}
+  DMGSounds: {fileID: 8300000, guid: 42fdf61bd308acb459555b09cb60b802, type: 3}
+  DMGVFX: {fileID: 1929487810091670297, guid: 51876c0a398414241abf48f00a945415, type: 3}
   LandVFX: {fileID: 1929487810091670297, guid: 2abf8df3072b10942b6424e6b132b1bf, type: 3}
 --- !u!1 &7150659623293557541
 GameObject:

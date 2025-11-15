@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class GameManager : MonoBehaviour
     //Time slow variables
     public bool ifslowtime = false;
     public float slowedtime = 0.2f;
+
     private void Awake()
     {
         if (PlayerPrefab == null)
@@ -31,8 +33,14 @@ public class GameManager : MonoBehaviour
         // dont think this is the best way to do this !!!!!!!
         // if there is time come and change me 
         //cp is the current array index
+
         foreach (CheckPiont cp in CheckPiontsArray)             
             cp.SetNewSpwanPiont += OnCheckpointSet;
+
+        //set first check point as start location
+        CheckPiont firstCP = CheckPiontsArray[0];
+        CurrentCheckPointLocation = firstCP.transform.position;
+        PlayerPrefab.transform.position = CurrentCheckPointLocation;
     }
 
     private void OnDestroy()
@@ -45,24 +53,28 @@ public class GameManager : MonoBehaviour
     }
     private void Update()
     {
-        if (ifslowtime)
-            Time.timeScale = slowedtime; // 10% speed
-        else
-            Time.timeScale = 1f; // normal speed
+        //if (ifslowtime)
+        //    Time.timeScale = slowedtime; // 10% speed
+        //else
+        //    Time.timeScale = 1f; // normal speed
     }
+    public IEnumerator DeadUpdate()
+    {
+        Time.timeScale = 0.01f;
+        yield return new WaitForSecondsRealtime(1.5f);
+        Time.timeScale = 1;
+        PlayerPrefab.transform.position = CurrentCheckPointLocation;
+        StopAllCoroutines();
+    }
+
     public void OnplayerDamaged(float current, float max, float damage)
     {
-        Log.Red("Game Manager > Player DMGed");
-        RespawnPlayer();
+        Log.Red(" we DMged");
+        StartCoroutine(DeadUpdate());
     }
     public void OnPlayerDead(MonoBehaviour causer)
     {
         Log.Red("Game Manager > Player Dead");
-    }
-    private void RespawnPlayer()
-    {
-        PlayerPrefab.transform.position = CurrentCheckPointLocation;
-        //spawn player in after X seconds
     }
     private void OnCheckpointSet(Vector3 CheckPiontLocation)
     {

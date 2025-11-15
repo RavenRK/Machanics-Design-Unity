@@ -17,6 +17,7 @@ public class PlayerCoroutineHandler : MonoBehaviour
     public Coroutine C_JumpApexCheck { get; private set; }
     public Coroutine C_MoveSoundCheck { get; private set; }
     public Coroutine C_AirMoveCheck { get; private set; }
+    public Coroutine C_DeadCheck { get; private set; }
 
     public void Awake()
     {
@@ -33,7 +34,6 @@ public class PlayerCoroutineHandler : MonoBehaviour
         }
         if (bCanDebug) Log.Green("Grounded Detected");
         FeedBackM.PlayLandPlayerFeedBack();
-        Log.Red("Land Feedback Played");
         PC.originalValuesReset();
         StateManager.ChangeState(StateManager.IdleState);
         C_GroundCheck = null;

@@ -66,6 +66,7 @@ public class playerCharacter : MonoBehaviour
     public Rigidbody2D rb2D {get; private set; }
     private PlayerFeedBackManager feedbackM;
 
+
     private void Awake()
     {
         rb2D = GetComponent<Rigidbody2D>();
@@ -84,21 +85,15 @@ public class playerCharacter : MonoBehaviour
 
         InteractionCollider = GetComponentInChildren<CircleCollider2D>();
         healthComponent = GetComponent<HealthComponent>();
-
+        feedbackM = GetComponentInChildren<PlayerFeedBackManager>();
     }
     private void Start()
     {
-        healthComponent.OnDead += OnPlayerDead;
         healthComponent.OnDamageTaken += OnplayerDamaged;
     }
     private void OnDestroy()
     {
-        healthComponent.OnDead -= OnPlayerDead;
         healthComponent.OnDamageTaken -= OnplayerDamaged;
-    }
-    public void OnPlayerDead(MonoBehaviour causer)
-    {
-        Log.Red("Player Dead");
     }
     private void OnplayerDamaged(float current, float max, float damage)
     {
