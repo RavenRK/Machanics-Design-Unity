@@ -50,42 +50,50 @@ public class playerCharacter : MonoBehaviour
     [Header("Movement other settings")]
     public float ApplyLandingDamping = 0.8f;
     [HideInInspector] public bool BCanOriginalValuesReset;
-    public CapsuleCollider2D playerCollider;
+    public CapsuleCollider2D playerCapsuleCollider;
     #endregion
 
     [Header("checks")]
-    public Transform raycastPosition;
     public LayerMask gGroundLayer;
+    public Transform raycastPosition;
     [HideInInspector] public bool bIsGrounded;
 
-    [HideInInspector] public Collider2D InteractionCollider;
     [SerializeField] public LayerMask interactableLayer;
-    //public GameObject interactableObject;
+    public Collider2D InteractionCollider;
 
     private HealthComponent healthComponent;
-    public Rigidbody2D rb2D {get; private set; }
     private PlayerFeedBackManager feedbackM;
+    public Rigidbody2D rb2D {get; private set; }
 
+    public CircleCollider2D PinchingCollider;
+    [HideInInspector] public Vector2 originalColliderSize;
+    public Vector2 JumpColliderSize = new Vector2(.40f, .97f);
 
     private void Awake()
     {
         rb2D = GetComponent<Rigidbody2D>();
-
-        //store original values
-        originalGravityScale = rb2D.gravityScale;
-        originalLinearDamping = rb2D.linearDamping;
-        originalJumpBufferTimer = jumpBufferTimer;
-        BCanOriginalValuesReset = false;
-
-        //Set defaults
-        bIsInputbuffer = false;
-        bShortJump = false;
-        bJumpGravityReset = false;
-        bCanJump = true;
-
-        InteractionCollider = GetComponentInChildren<CircleCollider2D>();
         healthComponent = GetComponent<HealthComponent>();
         feedbackM = GetComponentInChildren<PlayerFeedBackManager>();
+        playerCapsuleCollider = GetComponentInChildren<CapsuleCollider2D>();
+
+        //store original values
+        BCanOriginalValuesReset = false;
+        originalGravityScale = rb2D.gravityScale;
+        originalJumpBufferTimer = jumpBufferTimer;
+        originalLinearDamping = rb2D.linearDamping;
+        originalColliderSize = playerCapsuleCollider.size;
+
+        //Set defaults
+        bCanJump = true;
+        bShortJump = false;
+        bIsInputbuffer = false;
+        bJumpGravityReset = false;
+
+        if (playerCapsuleCollider == null)
+        { Log.Red("No Player Collider found in children"); }
+
+        if (InteractionCollider == null)
+        { Log.Red("No Interaction Collider found in children"); }
     }
     private void Start()
     {
@@ -97,7 +105,6 @@ public class playerCharacter : MonoBehaviour
     }
     private void OnplayerDamaged(float current, float max, float damage)
     {
-        Log.Yellow($"Player Damaged: -{damage} HP ({current}/{max})");
         feedbackM.PlayDMGPlayerFeedBack();
     }
     private void FixedUpdate()

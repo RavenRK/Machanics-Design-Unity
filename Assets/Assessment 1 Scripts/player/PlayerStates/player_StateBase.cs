@@ -18,7 +18,13 @@ public class player_StateBase
         FeedbackM = FeedbackManager;
     }
     public virtual void Enter() { }
-    public virtual void FixedUpdate() { }
+    public virtual void FixedUpdate()
+    {
+
+
+
+
+    }
     public virtual void Exit() { CH.StopAllCoroutines(); }
     public virtual void OnMove(Vector2 direction) 
     {
@@ -32,6 +38,7 @@ public class player_StateBase
             Jump(PC.originalGravityScale, PC.jumpDownForce, false);
     }
 
+    //this should be in its own class but as the interactable system is very simple for now it will stay here
     public virtual void OnInteract() 
     {
         //Log.Red("Interact Pressed");
@@ -47,7 +54,8 @@ public class player_StateBase
             interactableObject.Interact();
         }
     }
-
+    // jump is staying here for now as well as we need it in 3/5 states but it would go in a biger state 
+    // like air born movement just for sates that is in the air maybe 
     public void Jump(float newjumpGravity, float newjumpForce, bool allowGravityReset)
     {
 

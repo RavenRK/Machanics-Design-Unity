@@ -168,6 +168,142 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!1 &3463091231252926995
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1083458382356570310}
+  - component: {fileID: 5110003144724413223}
+  m_Layer: 0
+  m_Name: pitching Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1083458382356570310
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3463091231252926995}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4334919228750527966}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &5110003144724413223
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3463091231252926995}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 0.6
+--- !u!1 &4317276516285911252
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2086604949046892353}
+  - component: {fileID: 5083450376395119896}
+  m_Layer: 0
+  m_Name: InteractionCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2086604949046892353
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4317276516285911252}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4334919228750527966}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &5083450376395119896
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4317276516285911252}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 0.3
 --- !u!1 &5368893012325453326
 GameObject:
   m_ObjectHideFlags: 0
@@ -209,6 +345,8 @@ Transform:
   - {fileID: 6823022025625639064}
   - {fileID: 1221114071570788124}
   - {fileID: 6849998565715241562}
+  - {fileID: 2086604949046892353}
+  - {fileID: 1083458382356570310}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &7848436387547304162
@@ -333,16 +471,19 @@ MonoBehaviour:
   Movedirection: {x: 0, y: 0}
   ApplyLandingDamping: 0.2
   BCanOriginalValuesReset: 0
-  playerCollider: {fileID: 5544929499246765225}
-  raycastPosition: {fileID: 585118057813734437}
+  playerCapsuleCollider: {fileID: 5544929499246765225}
   gGroundLayer:
     serializedVersion: 2
     m_Bits: 8
+  raycastPosition: {fileID: 585118057813734437}
   bIsGrounded: 0
-  InteractionCollider: {fileID: 0}
   interactableLayer:
     serializedVersion: 2
     m_Bits: 64
+  InteractionCollider: {fileID: 5083450376395119896}
+  PinchingCollider: {fileID: 5110003144724413223}
+  originalColliderSize: {x: 0, y: 0}
+  JumpColliderSize: {x: 0.4, y: 0.97}
 --- !u!114 &4396852145871511339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -355,7 +496,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 253bbbfa291ddd24ab8d9c370e3cf082, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BDebug_CurrentState: 0
+  BDebug_CurrentState: 1
   BDebug_StateChange: 0
   BDebug_State_Idle: 0
   BDebug_State_Move: 0
@@ -691,11 +832,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BDebug_PlaySound: 0
-  AudioSource: {fileID: 5810785984481032638}
+  DMGSounds: {fileID: 8300000, guid: 42fdf61bd308acb459555b09cb60b802, type: 3}
   JumpSounds: {fileID: 8300000, guid: ae852656b16106c4ab3e5f16ebe5ee84, type: 3}
   MoveSounds: {fileID: 8300000, guid: cb99a1f0b69948a458aefae09d143799, type: 3}
   LandSounds: {fileID: 8300000, guid: 5f58b1767331b0c4d820b4c72bf36e93, type: 3}
-  DMGSounds: {fileID: 8300000, guid: 42fdf61bd308acb459555b09cb60b802, type: 3}
+  AudioSource: {fileID: 5810785984481032638}
   DMGVFX: {fileID: 1929487810091670297, guid: 51876c0a398414241abf48f00a945415, type: 3}
   LandVFX: {fileID: 1929487810091670297, guid: 2abf8df3072b10942b6424e6b132b1bf, type: 3}
 --- !u!1 &7150659623293557541
@@ -775,7 +916,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -5177388603050735206, guid: 71ebafeef3c03457483266a33ab2b270, type: 3}
-  m_Color: {r: 0.8396226, g: 0.8396226, b: 0.8396226, a: 1}
+  m_Color: {r: 0.8679245, g: 0.8679245, b: 0.8679245, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

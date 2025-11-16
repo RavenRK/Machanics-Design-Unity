@@ -7,85 +7,69 @@ public class PlayerFeedBackManager : MonoBehaviour
     public bool BDebug_PlaySound = false;
 
     [Header("Audio Clips")]
-    [SerializeField] private AudioSource AudioSource;
+    [SerializeField] private AudioClip DMGSounds;
     [SerializeField] private AudioClip JumpSounds;
     [SerializeField] private AudioClip MoveSounds;
     [SerializeField] private AudioClip LandSounds;
-    [SerializeField] private AudioClip DMGSounds;
+    [SerializeField] private AudioSource AudioSource;
 
     [Header("VFX")]
     [SerializeField] private ParticleSystem DMGVFX;
     [SerializeField] private ParticleSystem LandVFX;
 
+    private SpriteRenderer SpriteRenderer;
+
     private void Awake()
     {
         AudioSource = GetComponent<AudioSource>();
+        SpriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
-    //get called in the health component OnDamageTaken event
     public void PlayDMGPlayerFeedBack()
     {
-        AudioSource.loop = false;
-
-        if (AudioSource.clip != DMGSounds)
-        {
-            AudioSource.clip = DMGSounds;
-            Log.Red("DMG VFX");
-        }
-
-        AudioSource.Play();
-        if (LandVFX != null)
-        {
-            Vector3 PlayLocation = this.transform.position;
-            Instantiate(DMGVFX, PlayLocation, Quaternion.identity);
-            Log.Red("VFX");
-        }
-        else { Log.Red("No DMG VFX assigned"); }
+       // PlaySound(DMGSounds, false);
+       // SpriteRenderer.color = Color.red;
+       // PlayVfX(DMGVFX);
+       //// PlayDMGPlayerFeedBackUpdate();
     }
-    // gets called in the player State machine OnEnter Jump State
+    //public IEnumerator PlayDMGPlayerFeedBackUpdate()
+    //{
+    //    Time.timeScale = 0.1f;
+    //    yield return new WaitForSecondsRealtime(1.25f);
+    //    Time.timeScale = 1;
+    //    StopAllCoroutines();
+    //}
     public void PlayJumpPlayerFeedBack()
     {
-        AudioSource.loop = false;
-
-        if (AudioSource.clip != JumpSounds)
-            AudioSource.clip = JumpSounds;
-
-        AudioSource.Play();
-        if (BDebug_PlaySound) Log.Red("Play Jump Sound");
+       // PlaySound(JumpSounds, false);
     }
-    // gets called in the player State machine OnEnter Move State
     public void PlayMovePlayerFeedBack()
     {
-        if (AudioSource.clip != MoveSounds)
-            AudioSource.clip = MoveSounds;
-
-        AudioSource.loop = true;
-        AudioSource.Play();
-
-        if (BDebug_PlaySound) Log.Red("Play move Sound");
+        //PlaySound(MoveSounds, true);
     }
     public void StopMovePlayerFeedBack()
     {
-        AudioSource.loop = false;
-        AudioSource.Stop();
-        if (BDebug_PlaySound) Log.Red("Stop move Sound");
+        //AudioSource.loop = false;
+        //AudioSource.Stop();
+        //if (BDebug_PlaySound) Log.Red("Stop move Sound");
     }
-    // gets called in the player State machine OnEnter
-    // iedle if the player was previously in air state
     public void PlayLandPlayerFeedBack()
     {
-        AudioSource.loop = false;
+       //PlaySound(LandSounds, false);
+       //PlayVfX(LandVFX);
+    }
 
-        if (AudioSource.clip != LandSounds)
-            AudioSource.clip = LandSounds;
-
-        AudioSource.Play();
-        if (BDebug_PlaySound) Log.Red("Land player Feedback");
-
-        if (LandVFX != null)
+    private void PlayVfX(ParticleSystem VFX)
+    {
+        Vector3 PlayLocation = this.transform.position;
+        Instantiate(DMGVFX, PlayLocation, Quaternion.identity);
+    }
+    private void PlaySound(AudioClip Sound, bool bShouldLoop)
+    {
+        AudioSource.loop = bShouldLoop;
+        if (AudioSource.clip != Sound)
         {
-            Vector3 PlayLocation = this.transform.position;
-            Instantiate(LandVFX, PlayLocation, Quaternion.identity);
+            AudioSource.clip = Sound;
+            AudioSource.Play();
         }
-        else { Log.Red("No Land VFX assigned"); }
     }
 }

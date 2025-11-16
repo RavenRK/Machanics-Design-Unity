@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using static UnityEditor.PlayerSettings;
 
 public class PlayerCoroutineHandler : MonoBehaviour
 {
@@ -18,12 +19,24 @@ public class PlayerCoroutineHandler : MonoBehaviour
     public Coroutine C_MoveSoundCheck { get; private set; }
     public Coroutine C_AirMoveCheck { get; private set; }
     public Coroutine C_DeadCheck { get; private set; }
-
+    public Coroutine C_ColliderPinchCheck { get; private set; }
     public void Awake()
     {
         PC = GetComponent<playerCharacter>();
         StateManager = GetComponent<playerStateManager>();
         FeedBackM = GetComponentInChildren<PlayerFeedBackManager>();
+    }
+    public IEnumerator ColliderPinchCheck()
+    {
+        yield return new WaitForSeconds(0.2f);
+        while (!PC.bIsGrounded)
+        {
+            if (PC.PinchingCollider.IsTouchingLayers(PC.gGroundLayer))
+            {
+                PC.playerCapsuleCollider.size = PC.originalColliderSize;
+                break;
+            }
+        }
     }
     public IEnumerator GroundCheckUpdate()
     {
@@ -99,7 +112,6 @@ public class PlayerCoroutineHandler : MonoBehaviour
         {
             yield return null;
             PC.rb2D.linearVelocity = new Vector2(PC.Movedirection.x * PC.moveSpeed, PC.rb2D.linearVelocity.y);
-
         }
         FeedBackM.StopMovePlayerFeedBack();
         StateManager.ChangeState(StateManager.IdleState);
@@ -109,7 +121,6 @@ public class PlayerCoroutineHandler : MonoBehaviour
         while (PC.Movedirection != Vector2.zero)
         {
             yield return null;
-
             if (!PC.bIsGrounded)
                 PC.rb2D.AddForce(new Vector2(PC.Movedirection.x * PC.airMoveSpeed, 0f), ForceMode2D.Force);
         }
@@ -125,7 +136,7 @@ public class PlayerCoroutineHandler : MonoBehaviour
         }
         else
         {
-            if (bCanDebug) Log.Red("Coroutine is already running");
+            Log.Red("Coroutine is already running");
             return null;
         }
     }

@@ -13,7 +13,10 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private CheckPiont[] CheckPiontsArray;
 
+    public float respawnDelay = 2f;
+
     //Time slow variables
+    [Header("Time Variables")]
     public bool ifslowtime = false;
     public float slowedtime = 0.2f;
 
@@ -24,16 +27,16 @@ public class GameManager : MonoBehaviour
 
         PlayerPrefab = Instantiate(PlayerPrefab);
     }
+
     void Start()
     {
         healthComponent = PlayerPrefab.GetComponent<HealthComponent>();
         healthComponent.OnDamageTaken += OnplayerDamaged;
         healthComponent.OnDead += OnPlayerDead;
 
-        // dont think this is the best way to do this !!!!!!!
-        // if there is time come and change me 
-        //cp is the current array index
-
+        /* dont think this is the best way to do this !!!!!!!
+        if there is time come and change me 
+        cp is the current array index */
         foreach (CheckPiont cp in CheckPiontsArray)             
             cp.SetNewSpwanPiont += OnCheckpointSet;
 
@@ -47,31 +50,28 @@ public class GameManager : MonoBehaviour
     {
         healthComponent.OnDamageTaken -= OnplayerDamaged;
         healthComponent.OnDead -= OnPlayerDead;
+
         //cp is the current index
         foreach (CheckPiont cp in CheckPiontsArray)
             cp.SetNewSpwanPiont -= OnCheckpointSet;
     }
     private void Update()
     {
-        //if (ifslowtime)
-        //    Time.timeScale = slowedtime; // 10% speed
-        //else
-        //    Time.timeScale = 1f; // normal speed
-    }
-    public IEnumerator DeadUpdate()
-    {
-        Time.timeScale = 0.01f;
-        yield return new WaitForSecondsRealtime(1.25f);
-        Time.timeScale = 1;
-        PlayerPrefab.transform.position = CurrentCheckPointLocation;
-        StopAllCoroutines();
+        if (ifslowtime)
+            Time.timeScale = slowedtime; // 10% speed
     }
 
     public void OnplayerDamaged(float current, float max, float damage)
     {
         Log.Red(" we DMged");
-        StartCoroutine(DeadUpdate());
+        //StartCoroutine(DeadUpdate());
     }
+    //public IEnumerator DeadUpdate()
+    //{
+    //    yield return new WaitForSecondsRealtime(respawnDelay);
+    //    PlayerPrefab.transform.position = CurrentCheckPointLocation;
+    //    StopAllCoroutines();
+    //}
     public void OnPlayerDead(MonoBehaviour causer)
     {
         Log.Red("Game Manager > Player Dead");

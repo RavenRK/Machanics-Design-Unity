@@ -8,7 +8,6 @@ public class playerState_Move : player_StateBase
     { 
         CH.RunCoroutine(CH.VerticalDirectionCheck(), CH.C_VerticalDirectionCheck); //we falling check
         CH.RunCoroutine(CH.MoveUpdate(), CH.C_MoveCheck); // start moving
-        //CH.RunCoroutine(CH.MoveSoundTimer(), CH.C_MoveSoundCheck); // start move sound
     }
 
     public override void OnJumpPressed()

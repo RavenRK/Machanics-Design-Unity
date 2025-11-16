@@ -7,8 +7,10 @@ public class playerState_Jump : player_StateBase
     public override void Enter()
     {
         base.Enter();
-        EnterJumpStateBaseJumpFunc();
+        EnterJumpStateJumpFuncs();
 
+        CH.RunCoroutine(CH.ColliderPinchCheck(), CH.C_ColliderPinchCheck);
+        PC.playerCapsuleCollider.size = PC.JumpColliderSize;
     }
     public override void OnJumpReleased()
     {
@@ -19,9 +21,7 @@ public class playerState_Jump : player_StateBase
         base.Exit();
         PC.bIsInputbuffer = false;
     }
-
-    #region --JUMP---
-    public void EnterJumpStateBaseJumpFunc()
+    public void EnterJumpStateJumpFuncs()
     {
         if (PC.bCanJump)
         {
@@ -54,6 +54,4 @@ public class playerState_Jump : player_StateBase
             if (StateManager.BDebug_State_Jump) Log.Red("we cant jumnp");
         }
     }
-
-    #endregion
 }
