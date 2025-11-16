@@ -7,10 +7,10 @@ public class timeslow : MonoBehaviour
 
     private void Update()
     {
-        if (ifslowtime)
-            Time.timeScale = slowedtime; // 10% speed
-        else
-            Time.timeScale = 1f; // normal speed
+        //if (ifslowtime)
+        //    Time.timeScale = slowedtime; // 10% speed
+        //else
+        //    Time.timeScale = 1f; // normal speed
     }
 
 }

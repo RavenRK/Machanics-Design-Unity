@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private CheckPiont[] CheckPiontsArray;
 
-    public float respawnDelay = 2f;
+    public float respawnDelay = 1f;
 
     //Time slow variables
     [Header("Time Variables")]
@@ -55,23 +55,20 @@ public class GameManager : MonoBehaviour
         foreach (CheckPiont cp in CheckPiontsArray)
             cp.SetNewSpwanPiont -= OnCheckpointSet;
     }
-    private void Update()
-    {
-        if (ifslowtime)
-            Time.timeScale = slowedtime; // 10% speed
-    }
 
     public void OnplayerDamaged(float current, float max, float damage)
     {
-        Log.Red(" we DMged");
-        //StartCoroutine(DeadUpdate());
+        StartCoroutine(DMGedUpdate());
     }
-    //public IEnumerator DeadUpdate()
-    //{
-    //    yield return new WaitForSecondsRealtime(respawnDelay);
-    //    PlayerPrefab.transform.position = CurrentCheckPointLocation;
-    //    StopAllCoroutines();
-    //}
+    public IEnumerator DMGedUpdate()
+    {
+        Time.timeScale = 0.05f;
+        yield return new WaitForSecondsRealtime(1);
+        Time.timeScale = 1;
+        //yield return new WaitForSecondsRealtime(respawnDelay);
+        PlayerPrefab.transform.position = CurrentCheckPointLocation;
+        StopAllCoroutines();
+    }
     public void OnPlayerDead(MonoBehaviour causer)
     {
         Log.Red("Game Manager > Player Dead");

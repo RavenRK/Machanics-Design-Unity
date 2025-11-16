@@ -36,6 +36,7 @@ public class PlayerCoroutineHandler : MonoBehaviour
                 PC.playerCapsuleCollider.size = PC.originalColliderSize;
                 break;
             }
+            yield return null;
         }
     }
     public IEnumerator GroundCheckUpdate()

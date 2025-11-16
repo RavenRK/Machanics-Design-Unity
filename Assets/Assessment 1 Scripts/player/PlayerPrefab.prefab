@@ -839,6 +839,7 @@ MonoBehaviour:
   AudioSource: {fileID: 5810785984481032638}
   DMGVFX: {fileID: 1929487810091670297, guid: 51876c0a398414241abf48f00a945415, type: 3}
   LandVFX: {fileID: 1929487810091670297, guid: 2abf8df3072b10942b6424e6b132b1bf, type: 3}
+  SpriteRenderer: {fileID: 6967658569056111245}
 --- !u!1 &7150659623293557541
 GameObject:
   m_ObjectHideFlags: 0

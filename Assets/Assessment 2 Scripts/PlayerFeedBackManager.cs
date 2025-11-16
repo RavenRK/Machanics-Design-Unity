@@ -17,51 +17,42 @@ public class PlayerFeedBackManager : MonoBehaviour
     [SerializeField] private ParticleSystem DMGVFX;
     [SerializeField] private ParticleSystem LandVFX;
 
-    private SpriteRenderer SpriteRenderer;
-
+    [SerializeField] private SpriteRenderer SpriteRenderer;
+    private Color Oricolors;
     private void Awake()
     {
         AudioSource = GetComponent<AudioSource>();
-        SpriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        Color[] Oricolors = { SpriteRenderer.color };
     }
     public void PlayDMGPlayerFeedBack()
     {
-       // PlaySound(DMGSounds, false);
-       // SpriteRenderer.color = Color.red;
-       // PlayVfX(DMGVFX);
-       //// PlayDMGPlayerFeedBackUpdate();
+       PlaySound(DMGSounds, false);
+       PlayVfX(DMGVFX);
     }
-    //public IEnumerator PlayDMGPlayerFeedBackUpdate()
-    //{
-    //    Time.timeScale = 0.1f;
-    //    yield return new WaitForSecondsRealtime(1.25f);
-    //    Time.timeScale = 1;
-    //    StopAllCoroutines();
-    //}
     public void PlayJumpPlayerFeedBack()
     {
-       // PlaySound(JumpSounds, false);
+       PlaySound(JumpSounds, false);
     }
     public void PlayMovePlayerFeedBack()
     {
-        //PlaySound(MoveSounds, true);
+        PlaySound(MoveSounds, true);
     }
     public void StopMovePlayerFeedBack()
     {
-        //AudioSource.loop = false;
-        //AudioSource.Stop();
-        //if (BDebug_PlaySound) Log.Red("Stop move Sound");
+        AudioSource.loop = false;
+        AudioSource.Stop();
+        if (BDebug_PlaySound) Log.Red("Stop move Sound");
     }
     public void PlayLandPlayerFeedBack()
     {
-       //PlaySound(LandSounds, false);
-       //PlayVfX(LandVFX);
+       PlaySound(LandSounds, false);
+       PlayVfX(LandVFX);
     }
 
     private void PlayVfX(ParticleSystem VFX)
     {
         Vector3 PlayLocation = this.transform.position;
-        Instantiate(DMGVFX, PlayLocation, Quaternion.identity);
+        Instantiate(VFX, PlayLocation, Quaternion.identity);
     }
     private void PlaySound(AudioClip Sound, bool bShouldLoop)
     {
