@@ -28,6 +28,7 @@ public class PlayerFeedBackManager : MonoBehaviour
     {
        PlaySound(DMGSounds, false);
        PlayVfX(DMGVFX);
+       StartCoroutine(CameraShake(0.2f, 0.3f));
     }
     public void PlayJumpPlayerFeedBack()
     {
@@ -47,6 +48,26 @@ public class PlayerFeedBackManager : MonoBehaviour
     {
        PlaySound(LandSounds, false);
        PlayVfX(LandVFX);
+        StartCoroutine(CameraShake(0.1f, 0.05f));
+    }
+
+    public IEnumerator CameraShake(float time, float intensity)
+    {
+        Vector3 originalPos = Camera.main.transform.localPosition;
+        float elapsed = 0f;
+
+        while (elapsed < time)
+        {
+            float x = UnityEngine.Random.Range(-1f, 1f) * intensity;
+            float y = UnityEngine.Random.Range(-1f, 1f) * intensity;
+
+            Camera.main.transform.localPosition = new Vector3(originalPos.x + x, originalPos.y + y, originalPos.z);
+
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        Camera.main.transform.localPosition = originalPos;
     }
 
     private void PlayVfX(ParticleSystem VFX)

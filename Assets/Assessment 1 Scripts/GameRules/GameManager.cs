@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
         if there is time come and change me 
         cp is the current array index */
         foreach (CheckPiont cp in CheckPiontsArray)             
-            cp.SetNewSpwanPiont += OnCheckpointSet;
+            cp.SetNewSpwanPiont += CheckpointSet;
 
         //set first check point as start location
         CheckPiont firstCP = CheckPiontsArray[0];
@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
 
         //cp is the current index
         foreach (CheckPiont cp in CheckPiontsArray)
-            cp.SetNewSpwanPiont -= OnCheckpointSet;
+            cp.SetNewSpwanPiont -= CheckpointSet;
     }
 
     public void OnplayerDamaged(float current, float max, float damage)
@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
     {
         Log.Red("Game Manager > Player Dead");
     }
-    private void OnCheckpointSet(Vector3 CheckPiontLocation)
+    private void CheckpointSet(Vector3 CheckPiontLocation)
     {
         CurrentCheckPointLocation = CheckPiontLocation;
         Log.Red($"Game Manager > Checkpoint set! {CheckPiontLocation}");
