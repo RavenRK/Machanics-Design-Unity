@@ -1,0 +1,8 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/USS/MainMenu.uss?fileID=7433441132597879392&amp;guid=b6dfaf21dbb4b804da036d6f1a51ed27&amp;type=3#MainMenu" />
+    <ui:VisualElement style="flex-grow: 1; background-image: url(&quot;project://database/Assets/MagicCliffsArtwork/clouds.png?fileID=2800000&amp;guid=e5bd0397035914333a8d430a1a5d7d16&amp;type=3#clouds&quot;);">
+        <ui:Label text="MainMenu" name="MainMenu" class="header" style="-unity-text-align: upper-center;" />
+        <ui:Button text="Start" name="StartButtom" class="button" style="background-image: url(&quot;project://database/Assets/MagicCliffsArtwork/far-grounds.png?fileID=2800000&amp;guid=f07713816d1804024959baa9e2f75852&amp;type=3#far-grounds&quot;); margin-top: 279px; height: 79px; margin-left: 0;" />
+        <ui:Button text="Quit" name="QuitButtom" class="button" style="background-image: url(&quot;project://database/Assets/Assessment%202%20Scripts/Screenshot%202025-11-14%20103035.png?fileID=2800000&amp;guid=08802df8fa94b41448f96dceed1f1351&amp;type=3#Screenshot 2025-11-14 103035&quot;); margin-top: 51px; height: 89px; margin-left: 0;" />
+    </ui:VisualElement>
+</ui:UXML>
